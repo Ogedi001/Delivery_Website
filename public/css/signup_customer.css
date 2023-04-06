@@ -1,0 +1,78 @@
+/* Main container */
+.container {
+    margin: auto;
+    max-width: 500px;
+    padding: 20px;
+  }
+  
+  /* Form styles */
+  form {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 20px;
+  }
+  
+  form h2 {
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  form label {
+    display: block;
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+  
+  form input[type="text"], form input[type="email"], form input[type="password"] {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 18px;
+    margin-bottom: 15px;
+    padding: 10px;
+    width: 100%;
+  }
+  
+  form input[type="submit"] {
+    background-color: #000;
+    border: none;
+    border-radius: 5px;
+    color: #fff;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: 700;
+    margin-top: 20px;
+    padding: 10px 20px;
+    transition: background-color 0.3s ease;
+    width: 100%;
+  }
+  
+  form input[type="submit"]:hover {
+    background-color: #333;
+  }
+  
+  /* Error message styles */
+  .error-message {
+    background-color: #ffdddd;
+    border: 1px solid #ff9999;
+    border-radius: 5px;
+    color: #ff4444;
+    font-size: 16px;
+    margin-bottom: 10px;
+    padding: 10px;
+  }
+  
+  /* Success message styles */
+  .success-message {
+    background-color: #ddffdd;
+    border: 1px solid #99ff99;
+    border-radius: 5px;
+    color: #22aa22;
+    font-size: 16px;
+    margin-bottom: 10px;
+    padding: 10px;
+  }
+  

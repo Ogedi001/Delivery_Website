@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Customer Sign-up</title>
+  <link rel="stylesheet" href="./css/signup_customer.css">
+</head>
+<body>
+  <h1>Customer Sign-up</h1>
+  
+   
+  <form action="/signup/customer" method="POST">
+    <div>
+      <label for="username">Username:</label>
+      <input type="text" name="username" id="username" value="<%= value && value.username ? value.username : '' %> ">
+      <h4><%= errors && errors.username ? errors.username : '' %> </h4>
+
+    </div>
+    
+    <div>
+      <label for="name">Full Name:</label>
+      <input type="text" id="name" name="name" value="<%= value && value.name ? value.name : '' %> "><br>
+    </div>
+  
+    <div>
+      <label for="email">Email:</label>
+      <input type="email" name="email" id="email" value="<%= value && value.email ? value.email : '' %> " >
+      <h4><%= errors && errors.email ? errors.email : '' %></h4>
+
+    </div>
+
+    <div>
+      <label for="phone">Phone Number:</label>
+      <input type="text" name="phoneNumber" id="phone"  value="<%= value && value.phoneNumber? value.phoneNumber : '' %> ">
+      <h4><%= errors && errors.phoneNumber ? errors.phoneNumber : '' %></h4>
+
+    </div>
+
+    <div>
+      <label for="password">Password:</label>
+      <input type="password"  id="password" name="password" minlength="8"value="<%= value && value.password ? value.password: '' %> " ><br>
+    </div>
+  
+    <div>
+      <label for="confirm-password">Confirm Password:</label>
+      <input type="password" id="confirm-password" name="passwordConfirmation" minlength="8" ><br>
+      <h4 class="alert alert-danger" role="alert">
+        <%=passwordMSG%> </h4>
+    </body>
+     
+    </div>
+  
+    <div>
+      <label for="address">Address:</label>
+      <input type="text" id="address" name="address"  value="<%= value && value.address? value.address : '' %> "><br>
+    </div>
+  
+    <input type="submit" id="submit" value="Create Account">
+  </form>
+  
+</html>
