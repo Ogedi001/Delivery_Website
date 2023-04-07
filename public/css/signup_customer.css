@@ -53,6 +53,12 @@
   form input[type="submit"]:hover {
     background-color: #333;
   }
+  form input[type="text"]::placeholder,
+form input[type="email"]::placeholder,
+form input[type="password"]::placeholder {
+  color: #999;
+}
+
   
   /* Error message styles */
   .error-message {

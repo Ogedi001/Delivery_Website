@@ -33,7 +33,14 @@ const customerSchema = new mongoose.Schema({
     },
     password: {
         type: String,
-        required: [true, 'password is required']
+        required: [true, 'password is required'],
+        validate: {
+            validator: function (password) {
+                // add your validation logic here
+                return validator.isStrongPassword(password);
+            },
+            message: 'Weak password, should be at least 8 characters long and contains   atleast 1 uppercase,lowercase,number and a symbol'
+        }
     },
 
     address: {

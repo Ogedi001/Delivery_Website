@@ -10,7 +10,7 @@ const getSignUP = (req, res) => {
         res.render('signup_rider');
     } else if (signUpType === 'customer') {
 
-        res.render('signup_customer', { passwordMSG: null, errors: null, value: null, message: null })
+        res.render('signup_customer', { passwordMSG: null, errors: null, value: null, message: null, invalidErrors: null })
     } else {
         res.send('Invalid user type');
     }

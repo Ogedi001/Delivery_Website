@@ -5,10 +5,10 @@ const RegCustomer = async (req, res) => {
     try {
         const { password, passwordConfirmation } = req.body
         if (!password) {
-            return res.status(400).render('signup_customer', { passwordMSG: 'Passwords field can not be empty', value: req.body, errors: null });
+            return res.status(400).render('signup_customer', { passwordMSG: 'Passwords field can not be empty', value: req.body, errors: null, invalidErrors: null });
         }
         if (password !== passwordConfirmation) {
-            return res.status(400).render('signup_customer', { passwordMSG: 'Passwords do not match', value: req.body, errors: null });
+            return res.status(400).render('signup_customer', { passwordMSG: 'Passwords do not match', value: req.body, errors: null, invalidErrors: null });
         }
         // code for special validating email and phone number receiving sms and mail
         const customer = await Customer.create(req.body)
@@ -17,12 +17,8 @@ const RegCustomer = async (req, res) => {
     }
 
     catch (error) {
-        console.log(JSON.stringify(error))
 
         if (error.code === 11000) {
-
-            console.log(", blah JSON.stringify(error)")
-
             const errors = {};
             if (error.keyPattern.username) {
                 errors.username = 'Username already exist'
@@ -43,17 +39,23 @@ const RegCustomer = async (req, res) => {
             return res.status(400).render('signup_customer', { errors: errors, value: req.body, passwordMSG: null });
         }
 
+        if (error.name === 'ValidationError') {
+            const invalidErrors = {}
+            Object.values(error.errors).forEach(err => {
+                invalidErrors[err.path] = err.message
+            })
+            console.log(invalidErrors)
+            return res.status(400).render('signup_customer', { errors: null, value: req.body, passwordMSG: null, invalidErrors: invalidErrors })
+        }
+
         else {
 
             res.status(500).render('signup_customer', { message: 'An error occurred while creating the customer account' });
         }
-        console.log(error);
+
+        console.log(JSON.stringify(error))
+        res.json(JSON.stringify(error))
     }
-
-
-
-    // console.log(JSON.stringify(error))
-    // res.json(JSON.stringify(error))
 }
 
 
