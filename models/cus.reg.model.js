@@ -74,6 +74,44 @@ customerSchema.pre('save', async function (next) {
     }
 })
 
+customerSchema.statics.findUserByEmailOrUsername = function (usernameOrEmail, password) {
+    return new Promise(async (resolve, reject) => {
+        try {
+            if (!usernameOrEmail) {
+                reject('Please insert a valid email or username')
+                return
+            }
+            if (!password) {
+                reject("Please insert passsword")
+                return
+            }
+
+            const user = await this.findOne({ $or: [{ email: usernameOrEmail }, { username: usernameOrEmail }] })
+
+            if (!user) {
+                reject('User does not exist!')
+                return
+            }
+            const validUser = await bcrypt.compareSync(password, user.password)
+
+            if (!validUser) {
+                reject('Invalid credentials')
+                return
+            }
+            resolve(user)
+
+        } catch (error) {
+            reject(error)
+        }
+    })
+}
+
+// Add a method to update customer age
+customerSchema.methods.updateAge = async function (age) {
+    this.age = age;
+    await this.save();
+};
+
 const Customer = mongoose.model('Customer', customerSchema);
 
 module.exports = Customer;

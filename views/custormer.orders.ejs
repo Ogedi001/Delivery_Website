@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- Orders Page -->
+
+    <h1>My Orders</h1>
+
+    <div class="order-history">
+        <h2>Order History</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Order Number</th>
+                    <th>Order Date</th>
+                    <th>Total Amount</th>
+                    <th>Order Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% orders.forEach(function(order) { %>
+                    <tr>
+                        <td>
+                            <%= order.orderNumber %>
+                        </td>
+                        <td>
+                            <%= order.orderDate %>
+                        </td>
+                        <td>
+                            <%= order.totalAmount %>
+                        </td>
+                        <td>
+                            <%= order.orderStatus %>
+                        </td>
+                        <td><a href="/orders/<%= order.orderNumber %>">View Details</a></td>
+                    </tr>
+                    <% }); %>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="new-order">
+        <h2>New Order</h2>
+        <form action="/orders" method="POST">
+            <label for="pickup-location">Pickup Location:</label>
+            <input type="text" id="pickup-location" name="pickup-location" required>
+            <label for="dropoff-location">Dropoff Location:</label>
+            <input type="text" id="dropoff-location" name="dropoff-location" required>
+            <label for="item-type">Item Type:</label>
+            <input type="text" id="item-type" name="item-type" required>
+            <label for="delivery-options">Delivery Options:</label>
+            <select id="delivery-options" name="delivery-options">
+                <option value="standard">Standard (3-5 days)</option>
+                <option value="express">Express (1-2 days)</option>
+            </select>
+            <label for="payment-options">Payment Options:</label>
+            <select id="payment-options" name="payment-options">
+                <option value="credit-card">Credit/Debit Card</option>
+                <option value="paypal">PayPal</option>
+            </select>
+            <button type="submit">Place Order</button>
+        </form>
+    </div>
+
+    <div class="order-tracking">
+        <h2>Order Tracking</h2>
+        <form action="/orders/tracking" method="POST">
+            <label for="order-number">Order Number:</label>
+            <input type="text" id="order-number" name="order-number" required>
+            <button type="submit">Track Order</button>
+        </form>
+    </div>
+
+
+</body>
+
+</html>

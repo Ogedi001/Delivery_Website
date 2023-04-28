@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>login page</title>
+    <link rel="stylesheet" href="./css/login.customer.css">
+
+</head>
+
+<body>
+    <h4>
+        <%= error %>
+    </h4>
+    <form method="post" action="/login">
+        <label for="email-username">Email or Username:</label>
+        <input type="text" id="email_username" name="email_username"
+            value="<%= value && value.email_username? value.email_username : '' %>">
+
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password">
+
+        <button type="submit">Log In</button>
+    </form>
+
+</body>
+
+</html>

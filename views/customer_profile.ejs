@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>customer profile</title>
+</head>
+
+<body>
+    <!-- Customer Profile Page -->
+
+    <h1>My Profile</h1>
+
+    <div class="profile-info">
+        <form action="/profile/update-profile-pic" method="POST" enctype="multipart/form-data">
+            <label for="profile-pic">Profile Picture:</label>
+            <input type="file" id="profile-pic" name="profile-pic">
+            <button type="submit">Upload Profile Picture</button>
+        </form>
+
+        <img src="<%= customer.profile_pic_url %>" alt="Profile Picture">
+
+        <form action="/profile/remove-profile-pic" method="POST">
+            <button type="submit">Remove Profile Picture</button>
+        </form>
+
+
+        <form action="/profile/update-email" method="POST">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" value="<%= customer.email %>" required>
+            <button type="submit">Update Email</button>
+        </form>
+
+        <form action="/profile/update-phone" method="POST">
+            <label for="phone">Phone Number:</label>
+            <input type="tel" id="phone" name="phone" value="<%= customer.phoneNumber %>" required>
+            <button type="submit">Update Phone Number</button>
+        </form>
+
+        <form action="/profile/update-address" method="POST">
+            <label for="address">Address:</label>
+            <input type="text" id="address" name="address" value="<%= customer.address %>" required>
+            <button type="submit">Update Address</button>
+        </form>
+
+        <form action="/profile/update-password" method="POST">
+            <label for="current-password">Current Password:</label>
+            <input type="password" id="current-password" name="current-password" required><br>
+            <label for="new-password">New Password:</label>
+            <input type="password" id="new-password" name="new-password" required><br>
+            <label for="confirm-password">Confirm New Password:</label>
+            <input type="password" id="confirm-password" name="confirm-password" required>
+            <button type="submit">Update Password</button>
+        </form>
+
+        <a href="/account-activity">View Account Activity</a>
+    </div>
+
+</body>
+
+</html>

@@ -6,6 +6,9 @@ const express = require('express'),
   mongoose = require('mongoose'),
   customer = require('./models/cus.reg.model')
 
+const cookieParser = require('cookie-parser');
+
+
 
 
 const app = express()
@@ -14,8 +17,7 @@ app.set('view engine', 'ejs');
 app.use(express.json());
 app.use(express.static('./public'));
 app.use(express.urlencoded({ extended: true }));
-
-
+app.use(cookieParser())
 const DB_URL = process.env.DB_URL,
   PORT = process.env.PORT || 3000
 

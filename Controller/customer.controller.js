@@ -1,5 +1,11 @@
 const Customer = require('./../models/cus.reg.model')
+const jwt = require('jsonwebtoken')
 
+const createToken = (id) => {
+    const Time_in = new Date().toLocaleTimeString();
+
+    return jwt.sign({ id, Time_in }, 'JWT')
+}
 
 const RegCustomer = async (req, res) => {
     try {
@@ -13,7 +19,9 @@ const RegCustomer = async (req, res) => {
         // code for special validating email and phone number receiving sms and mail
         const customer = await Customer.create(req.body)
         console.log('Customer saved to database');
-        res.status(201).send({ message: 'Customer account created successfully' });
+        const token = createToken(customer._id)
+        res.cookie('customer', token, { httpOnly: true })
+        res.status(201).redirect('/customer')
     }
 
     catch (error) {
@@ -59,6 +67,32 @@ const RegCustomer = async (req, res) => {
 }
 
 
+const getLogin = (req, res) => {
+    res.render('login_customer', { error: null, value: null })
+}
+const login = async (req, res) => {
+    const { email_username, password } = req.body
+    try {
+        const user = await Customer.findUserByEmailOrUsername(email_username, password)
+        const token = createToken(user._id)
+        res.cookie('customer', token, { httpOnly: true })
+        res.status(201).redirect('/customer')
+
+    } catch (error) {
+        console.log(error)
+        res.render('login_customer', { error: error, value: req.body })
+    }
+}
+const getCustomer = (req, res) => {
+    res.status(201).render('customer')
+}
+
+const logOut = (req, res) => {
+    res.cookie('customer', '', { maxAge: 1 })
+    res.redirect('/login')
+
+}
 
 
-module.exports = { RegCustomer }
+
+module.exports = { RegCustomer, getLogin, login, getCustomer, logOut }
