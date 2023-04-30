@@ -8,7 +8,6 @@ const Customer = require('./../models/cus.reg.model')
 const customerAuth = (req, res, next) => {
 
     const token = req.cookies.customer
-    console.log(token)
     if (!token) {
         res.redirect('/login');
         return;

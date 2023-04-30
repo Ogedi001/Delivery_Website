@@ -58,6 +58,10 @@ const customerSchema = new mongoose.Schema({
             message: props => `${props.value} is not a valid phone number in Nigeria.`
         }
     },
+    profile_pic: {
+        data: Buffer,
+        contentType: String
+    },
 }
 );
 
@@ -108,8 +112,10 @@ customerSchema.statics.findUserByEmailOrUsername = function (usernameOrEmail, pa
 
 // Add a method to update customer age
 customerSchema.methods.updateAge = async function (age) {
+    console.log('Before update:', this.age); // Check the initial value of age field
     this.age = age;
     await this.save();
+    console.log('After update:', this.age); // Check the updated value of age field
 };
 
 const Customer = mongoose.model('Customer', customerSchema);

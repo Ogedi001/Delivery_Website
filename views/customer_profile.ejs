@@ -16,11 +16,10 @@
     <div class="profile-info">
         <form action="/profile/update-profile-pic" method="POST" enctype="multipart/form-data">
             <label for="profile-pic">Profile Picture:</label>
-            <input type="file" id="profile-pic" name="profile-pic">
+            <input type="file" id="profile_pic" name="profile_pic">
             <button type="submit">Upload Profile Picture</button>
         </form>
-
-        <img src="<%= customer.profile_pic_url %>" alt="Profile Picture">
+        <img src="/uploads/<%= customer.profile_pic.data %>" alt="Profile Picture">
 
         <form action="/profile/remove-profile-pic" method="POST">
             <button type="submit">Remove Profile Picture</button>
