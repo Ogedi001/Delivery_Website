@@ -71,9 +71,11 @@ const getLogin = (req, res) => {
     res.render('login_customer', { error: null, value: null })
 }
 const login = async (req, res) => {
+
     const { email_username, password } = req.body
     try {
         const user = await Customer.findUserByEmailOrUsername(email_username, password)
+
         const token = createToken(user._id)
         res.cookie('customer', token, { httpOnly: true })
         res.status(201).redirect('/customer')

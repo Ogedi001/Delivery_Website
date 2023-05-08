@@ -92,11 +92,13 @@ customerSchema.statics.findUserByEmailOrUsername = function (usernameOrEmail, pa
 
             const user = await this.findOne({ $or: [{ email: usernameOrEmail }, { username: usernameOrEmail }] })
 
+            console.log(user)
+
             if (!user) {
                 reject('User does not exist!')
                 return
             }
-            const validUser = await bcrypt.compareSync(password, user.password)
+            const validUser = bcrypt.compareSync(password, user.password)
 
             if (!validUser) {
                 reject('Invalid credentials')

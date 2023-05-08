@@ -13,6 +13,7 @@
 
     <h1>My Orders</h1>
 
+    <!--
     <div class="order-history">
         <h2>Order History</h2>
         <table>
@@ -26,26 +27,27 @@
                 </tr>
             </thead>
             <tbody>
-                <% orders.forEach(function(order) { %>
+                <% //orders.forEach(function(order) { %>
                     <tr>
                         <td>
-                            <%= order.orderNumber %>
+                            <%= //order.orderNumber %>
                         </td>
                         <td>
-                            <%= order.orderDate %>
+                            <%= //order.orderDate %>
                         </td>
                         <td>
-                            <%= order.totalAmount %>
+                            <%= //order.totalAmount %>
                         </td>
                         <td>
-                            <%= order.orderStatus %>
+                            <%= //order.orderStatus %>
                         </td>
-                        <td><a href="/orders/<%= order.orderNumber %>">View Details</a></td>
+                        <td><a href="/orders/<%= //order.orderNumber %>">View Details</a></td>
                     </tr>
-                    <% }); %>
+                    <% //}); %>
             </tbody>
         </table>
     </div>
+    -->
 
     <div class="new-order">
         <h2>New Order</h2>
@@ -54,8 +56,22 @@
             <input type="text" id="pickup-location" name="pickup-location" required>
             <label for="dropoff-location">Dropoff Location:</label>
             <input type="text" id="dropoff-location" name="dropoff-location" required>
-            <label for="item-type">Item Type:</label>
-            <input type="text" id="item-type" name="item-type" required>
+
+            <select id="itemType" name="itemType">
+                <option value="" disabled selected>Select item type</option>
+                <option value="groceries">Groceries</option>
+                <option value="accessories">Accessories</option>
+                <option value="books">Books</option>
+                <option value="clothes">Clothes</option>
+                <option value="electronics">Electronics</option>
+                <option value="furniture">Furniture</option>
+                <option value="other">Other</option>
+                <br>
+                <label for="item-image">Item Image:</label>
+                <input type="file" id="item-image" name="item-image">
+                <br>
+            </select>
+
             <label for="delivery-options">Delivery Options:</label>
             <select id="delivery-options" name="delivery-options">
                 <option value="standard">Standard (3-5 days)</option>

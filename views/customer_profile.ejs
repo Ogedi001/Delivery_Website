@@ -13,49 +13,69 @@
 
     <h1>My Profile</h1>
 
-    <div class="profile-info">
-        <form action="/profile/update-profile-pic" method="POST" enctype="multipart/form-data">
-            <label for="profile-pic">Profile Picture:</label>
-            <input type="file" id="profile_pic" name="profile_pic">
-            <button type="submit">Upload Profile Picture</button>
-        </form>
-        <img src="/uploads/<%= customer.profile_pic.data %>" alt="Profile Picture">
+    <% if (successMessage) { %>
+        <div class="success">
+            <strong>
+                <%= successMessage %>
+            </strong>
+        </div>
+        <script>
+            // Remove the success message after 2 seconds
+            setTimeout(function () {
+                var successDiv = document.querySelector('.success');
+                successDiv.parentNode.removeChild(successDiv);
+            }, 2000);
+        </script>
+        <% } %>
 
-        <form action="/profile/remove-profile-pic" method="POST">
-            <button type="submit">Remove Profile Picture</button>
-        </form>
+
+            <div class="profile-info">
+                <form action="/customer/profile/update-profile-pic" method="POST" enctype="multipart/form-data">
+                    <label for="profile-pic">Profile Picture:</label>
+                    <input type="file" id="profile_pic" name="profile_pic">
+                    <button type="submit">Upload Profile Picture</button>
+                </form>
+                <img src="/uploads/<%= customer.profile_pic.data %>" alt="Profile Picture">
+
+                <form action="/customer/profile/remove-profile-pic" method="POST">
+                    <button type="submit">Remove Profile Picture</button>
+                </form>
 
 
-        <form action="/profile/update-email" method="POST">
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email" value="<%= customer.email %>" required>
-            <button type="submit">Update Email</button>
-        </form>
+                <form action="/customer/profile/update-email" method="POST">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="newEmail" value="<%= customer.email %>" required>
+                    <button type="submit">Update Email</button>
+                </form>
 
-        <form action="/profile/update-phone" method="POST">
-            <label for="phone">Phone Number:</label>
-            <input type="tel" id="phone" name="phone" value="<%= customer.phoneNumber %>" required>
-            <button type="submit">Update Phone Number</button>
-        </form>
+                <form action="/customer/profile/update-phone" method="POST">
+                    <label for="phone">Phone Number:</label>
+                    <input type="tel" id="phone" name="newPhone" value="<%= customer.phoneNumber %>" required>
+                    <button type="submit">Update Phone Number</button>
+                </form>
 
-        <form action="/profile/update-address" method="POST">
-            <label for="address">Address:</label>
-            <input type="text" id="address" name="address" value="<%= customer.address %>" required>
-            <button type="submit">Update Address</button>
-        </form>
+                <form action="/customer/profile/update-address" method="POST">
+                    <label for="address">Address:</label>
+                    <input type="text" id="address" name="newAddress" value="<%= customer.address %>" required>
+                    <button type="submit">Update Address</button>
+                </form>
 
-        <form action="/profile/update-password" method="POST">
-            <label for="current-password">Current Password:</label>
-            <input type="password" id="current-password" name="current-password" required><br>
-            <label for="new-password">New Password:</label>
-            <input type="password" id="new-password" name="new-password" required><br>
-            <label for="confirm-password">Confirm New Password:</label>
-            <input type="password" id="confirm-password" name="confirm-password" required>
-            <button type="submit">Update Password</button>
-        </form>
+                <form action="/customer/profile/update-password" method="POST">
+                    <label for="current-password">Current Password:</label>
+                    <input type="password" id="current-password" name="current_password"
+                        value="<%= value && value.current_password ? value.current_password : '' %>" required><br>
+                    <label for=" new-password">New Password:</label>
+                    <input type="password" id="new-password" name="new_password" required><br>
+                    <label for="confirm-password">Confirm New Password:</label>
+                    <input type="password" id="confirm-password" name="confirm_password" required>
+                    <button type="submit">Update Password</button>
+                    <h4>
+                        <%= passwordError%>
+                    </h4>
+                </form>
 
-        <a href="/account-activity">View Account Activity</a>
-    </div>
+                <a href="/account-activity">View Account Activity</a>
+            </div>
 
 </body>
 
