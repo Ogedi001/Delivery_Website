@@ -62,6 +62,10 @@ const customerSchema = new mongoose.Schema({
         data: Buffer,
         contentType: String
     },
+    order: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'customerOrder',
+    },
 }
 );
 
@@ -112,13 +116,6 @@ customerSchema.statics.findUserByEmailOrUsername = function (usernameOrEmail, pa
     })
 }
 
-// Add a method to update customer age
-customerSchema.methods.updateAge = async function (age) {
-    console.log('Before update:', this.age); // Check the initial value of age field
-    this.age = age;
-    await this.save();
-    console.log('After update:', this.age); // Check the updated value of age field
-};
 
 const Customer = mongoose.model('Customer', customerSchema);
 

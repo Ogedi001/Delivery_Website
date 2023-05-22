@@ -6,12 +6,49 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+
+
+
+
+    <script type='text/javascript'>
+        let pickupMap;
+        let dropoffMap;
+
+        function GetMaps() {
+            pickupMap = new Microsoft.Maps.Map('#pickupMap', {});
+            dropoffMap = new Microsoft.Maps.Map('#dropoffMap', {});
+
+            Microsoft.Maps.loadModule('Microsoft.Maps.AutoSuggest', function () {
+                var options = {
+                    country: 'NGA' // Specify the country code for Nigeria
+                };
+
+                var manager1 = new Microsoft.Maps.AutosuggestManager({ map: pickupMap, options: options });
+                manager1.attachAutosuggest('#pickupSearchBox', '#pickupSearchBoxContainer', handleSelectedSuggestion);
+
+                var manager2 = new Microsoft.Maps.AutosuggestManager({ map: dropoffMap, options: options });
+                manager2.attachAutosuggest('#dropoffSearchBox', '#dropoffSearchBoxContainer', handleSelectedSuggestion);
+            });
+        }
+
+        function handleSelectedSuggestion(result) {
+            if (result.entityType === 'Address') {
+                // Update the corresponding input field with the selected suggestion
+                document.getElementById(result.id).value = result.address.formattedAddress;
+            }
+        }
+    </script>
+
+    <script type='text/javascript' src='http://www.bing.com/api/maps/mapcontrol?callback=GetMaps&key=<%= bingMapsKey %>'
+        async defer></script>
+
+
+</head>
+
 </head>
 
 <body>
     <!-- Orders Page -->
-
-    <h1>My Orders</h1>
 
     <!--
     <div class="order-history">
@@ -49,52 +86,55 @@
     </div>
     -->
 
+    <h1>My Orders</h1>
+
     <div class="new-order">
         <h2>New Order</h2>
         <form action="/orders" method="POST">
-            <label for="pickup-location">Pickup Location:</label>
-            <input type="text" id="pickup-location" name="pickup-location" required>
-            <label for="dropoff-location">Dropoff Location:</label>
-            <input type="text" id="dropoff-location" name="dropoff-location" required>
+            <div id='pickupSearchBoxContainer'>
+                <label for="pickup-location">Pickup Location:</label>
+                <input type="text" id="pickupSearchBox" name="pickupLocation" required autocomplete="off">
+                <input type="hidden" id="pickupSearchBoxValue" name="pickupSearchBox">
+            </div>
+
+            <div id="pickupMap" style="position:relative;width:400px;height:300px;"></div>
+
+            <div id='dropoffSearchBoxContainer'>
+                <label for="dropoff-location">Dropoff Location:</label>
+                <input type="text" id="dropoffSearchBox" name="dropoffLocation" required autocomplete="off">
+                <input type="hidden" id="dropoffSearchBoxValue" name="dropoffSearchBox">
+            </div>
+
+
+            <div id="dropoffMap" style="position:relative;width:400px;height:300px;"></div>
+
 
             <select id="itemType" name="itemType">
                 <option value="" disabled selected>Select item type</option>
-                <option value="groceries">Groceries</option>
-                <option value="accessories">Accessories</option>
-                <option value="books">Books</option>
-                <option value="clothes">Clothes</option>
-                <option value="electronics">Electronics</option>
-                <option value="furniture">Furniture</option>
+                <option value="Groceries">Groceries</option>
+                <option value="Accessories">Accessories</option>
+                <option value="Books">Books</option>
+                <option value="Clothes">Clothes</option>
+                <option value="Electronics">Electronics</option>
+                <option value="Furniture">Furniture</option>
                 <option value="other">Other</option>
-                <br>
-                <label for="item-image">Item Image:</label>
-                <input type="file" id="item-image" name="item-image">
-                <br>
             </select>
 
-            <label for="delivery-options">Delivery Options:</label>
-            <select id="delivery-options" name="delivery-options">
-                <option value="standard">Standard (3-5 days)</option>
-                <option value="express">Express (1-2 days)</option>
+            <label for="delivery-option">Delivery Option:</label>
+            <select id="delivery-option" name="deliveryOption">
+                <option value="Standard">Standard (3-5 days)</option>
+                <option value="Express">Express (1-2 days)</option>
             </select>
-            <label for="payment-options">Payment Options:</label>
-            <select id="payment-options" name="payment-options">
-                <option value="credit-card">Credit/Debit Card</option>
-                <option value="paypal">PayPal</option>
+
+            <label for="payment-option">Payment Option:</label>
+            <select id="payment-option" name="paymentOption">
+                <option value="Credit/Debit Card">Credit/Debit Card</option>
+                <option value="PayPal">PayPal</option>
             </select>
-            <button type="submit">Place Order</button>
+
+            <button type="submit" name="submit">Place Order</button>
         </form>
     </div>
-
-    <div class="order-tracking">
-        <h2>Order Tracking</h2>
-        <form action="/orders/tracking" method="POST">
-            <label for="order-number">Order Number:</label>
-            <input type="text" id="order-number" name="order-number" required>
-            <button type="submit">Track Order</button>
-        </form>
-    </div>
-
 
 </body>
 

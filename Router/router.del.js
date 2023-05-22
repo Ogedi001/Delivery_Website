@@ -4,7 +4,7 @@ const { getHome, getSignUP } = require('./../Controller/customer&Rider.controlle
 const { RegCustomer, getLogin, login, getCustomer, logOut } = require('./../Controller/customer.controller');
 const { customerAuth, checkCustomer } = require('./../Middleware/customerAuth')
 const { getCustomerProfile, uploadProfilePics, upload, updateEmail, updatePhoneNumber, updateAddress, removeProfilePICS, changePassword, reloadPage } = require('./../Controller/customer.profile.controller')
-const { getCustomerOrders } = require('./../Controller/customer.orders.controller')
+const { getCustomerOrders, postCustomerOrders } = require('./../Controller/customer.orders.controller')
 
 
 router.get('*', checkCustomer)
@@ -36,4 +36,5 @@ router.post("/customer/profile/update-password", changePassword)
 
 
 router.get('/customer/orders', getCustomerOrders)
+router.post("/orders", postCustomerOrders)
 module.exports = router
