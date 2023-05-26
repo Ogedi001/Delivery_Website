@@ -20,30 +20,42 @@
 
             Microsoft.Maps.loadModule('Microsoft.Maps.AutoSuggest', function () {
                 var options = {
-                    country: 'NGA' // Specify the country code for Nigeria
+                    countryFilter: 'NGA' // Specify the country code for Nigeria
                 };
 
                 var manager1 = new Microsoft.Maps.AutosuggestManager({ map: pickupMap, options: options });
-                manager1.attachAutosuggest('#pickupSearchBox', '#pickupSearchBoxContainer', handleSelectedSuggestion);
+                manager1.attachAutosuggest('#pickupSearchBox', '#pickupSearchBoxContainer', pickupSelectedSuggestion);
 
                 var manager2 = new Microsoft.Maps.AutosuggestManager({ map: dropoffMap, options: options });
-                manager2.attachAutosuggest('#dropoffSearchBox', '#dropoffSearchBoxContainer', handleSelectedSuggestion);
+                manager2.attachAutosuggest('#dropoffSearchBox', '#dropoffSearchBoxContainer', dropOffSelectedSuggestion);
             });
         }
 
-        function handleSelectedSuggestion(result) {
-            if (result.entityType === 'Address') {
-                // Update the corresponding input field with the selected suggestion
-                document.getElementById(result.id).value = result.address.formattedAddress;
-            }
+
+        function pickupSelectedSuggestion(result) {
+            pickupMap.entities.clear();
+            let pin = new Microsoft.Maps.Pushpin(result.location);
+            pickupMap.entities.push(pin);
+            pickupMap.setView({ bounds: result.bestView });
+            document.getElementById('pickupSearchBox').value = result.formattedSuggestion;
+            document.getElementById('pickupSearchBoxValue').value = result.formattedSuggestion;
+
         }
+        function dropOffSelectedSuggestion(result) {
+            dropoffMap.entities.clear();
+            let pin = new Microsoft.Maps.Pushpin(result.location);
+            dropoffMap.entities.push(pin);
+            dropoffMap.setView({ bounds: result.bestView });
+
+            document.getElementById('dropoffSearchBox').value = result.formattedSuggestion;
+            document.getElementById('dropoffSearchBoxValue').value = result.formattedSuggestion;
+        }
+
     </script>
 
     <script type='text/javascript' src='http://www.bing.com/api/maps/mapcontrol?callback=GetMaps&key=<%= bingMapsKey %>'
         async defer></script>
 
-
-</head>
 
 </head>
 
@@ -91,23 +103,24 @@
     <div class="new-order">
         <h2>New Order</h2>
         <form action="/orders" method="POST">
-            <div id='pickupSearchBoxContainer'>
-                <label for="pickup-location">Pickup Location:</label>
-                <input type="text" id="pickupSearchBox" name="pickupLocation" required autocomplete="off">
-                <input type="hidden" id="pickupSearchBoxValue" name="pickupSearchBox">
+            <div style="display: inline-flex;">
+                <div id='pickupSearchBoxContainer'>
+                    <label for="pickup-location">Pickup Location:</label>
+                    <input type="text" id="pickupSearchBox" name="pickupLocation" required autocomplete="off">
+                    <input type="hidden" id="pickupSearchBoxValue" name="pickupSearchBox">
+                </div>
+
+                <div id="pickupMap" style="position:relative;width:400px;height:300px;"></div>
+
+                <div id='dropoffSearchBoxContainer'>
+                    <label for="dropoff-location">Dropoff Location:</label>
+                    <input type="text" id="dropoffSearchBox" name="dropoffLocation" required autocomplete="off">
+                    <input type="hidden" id="dropoffSearchBoxValue" name="dropoffSearchBox">
+                </div>
+
+
+                <div id="dropoffMap" style="position:relative;width:400px;height:300px"></div>
             </div>
-
-            <div id="pickupMap" style="position:relative;width:400px;height:300px;"></div>
-
-            <div id='dropoffSearchBoxContainer'>
-                <label for="dropoff-location">Dropoff Location:</label>
-                <input type="text" id="dropoffSearchBox" name="dropoffLocation" required autocomplete="off">
-                <input type="hidden" id="dropoffSearchBoxValue" name="dropoffSearchBox">
-            </div>
-
-
-            <div id="dropoffMap" style="position:relative;width:400px;height:300px;"></div>
-
 
             <select id="itemType" name="itemType">
                 <option value="" disabled selected>Select item type</option>

@@ -22,11 +22,22 @@ const OrderSchema = new Schema({
         required: true,
         default: new Date().toLocaleTimeString('en-US', { month: 'short' })
     },
+    OrderDuration: {
+        distance_km: {
+            type: Number,
+            required: true
+        },
+        time_mins: {
+            type: Number,
+            required: true
+        }
+    },
 
-    // totalAmount: {
-    //     type: Number,
-    //     required: true
-    // },
+
+    OrderAmount: {
+        type: Number,
+        required: true
+    },
     orderStatus: {
         type: String,
         enum: ['Pending', 'In Progress', 'Delivered'],
