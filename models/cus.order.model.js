@@ -20,7 +20,7 @@ const OrderSchema = new Schema({
     orderDate: {
         type: String,
         required: true,
-        default: new Date().toLocaleTimeString('en-US', { month: 'short' })
+        default: new Date().toLocaleTimeString('en-US', { month: 'short', day: 'numeric' })
     },
     OrderDuration: {
         distance_km: {
@@ -32,8 +32,6 @@ const OrderSchema = new Schema({
             required: true
         }
     },
-
-
     OrderAmount: {
         type: Number,
         required: true

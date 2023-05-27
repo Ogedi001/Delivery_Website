@@ -56,52 +56,61 @@
     <script type='text/javascript' src='http://www.bing.com/api/maps/mapcontrol?callback=GetMaps&key=<%= bingMapsKey %>'
         async defer></script>
 
+    <style>
+        th,
+        td {
+            border-right: 1px solid black;
+            padding: 5px;
+        }
 
+        th:last-child,
+        td:last-child {
+            border-right: none;
+        }
+    </style>
 </head>
 
 <body>
     <!-- Orders Page -->
 
-    <!--
+
     <div class="order-history">
-        <h2>Order History</h2>
+        <h1>Order History</h1>
         <table>
             <thead>
                 <tr>
-                    <th>Order Number</th>
-                    <th>Order Date</th>
+                    <th>Order ID</th>
+                    <th> Date</th>
                     <th>Total Amount</th>
                     <th>Order Status</th>
                     <th>Action</th>
                 </tr>
             </thead>
             <tbody>
-                <% //orders.forEach(function(order) { %>
+                <% orders.forEach(function(order) { %>
                     <tr>
                         <td>
-                            <%= //order.orderNumber %>
+                            <%= order.orderNumber %>
                         </td>
                         <td>
-                            <%= //order.orderDate %>
+                            <%= order.orderDate %>
                         </td>
                         <td>
-                            <%= //order.totalAmount %>
+                            <%= order.OrderAmount %>
                         </td>
                         <td>
-                            <%= //order.orderStatus %>
+                            <%= order.orderStatus %>
                         </td>
-                        <td><a href="/orders/<%= //order.orderNumber %>">View Details</a></td>
+                        <td><a href="/customer/order?id=<%= order._id %>">View Details</a></td>
                     </tr>
-                    <% //}); %>
+                    <% }); %>
             </tbody>
         </table>
     </div>
-    -->
 
-    <h1>My Orders</h1>
 
     <div class="new-order">
-        <h2>New Order</h2>
+        <h1>New Order</h1>
         <form action="/orders" method="POST">
             <div style="display: inline-flex;">
                 <div id='pickupSearchBoxContainer'>

@@ -1,11 +1,12 @@
+require('dotenv').config()
 const Customer = require('./../models/cus.reg.model')
 const Order = require('./../models/cus.order.model')
 const jwt = require('jsonwebtoken')
 const { v4: uuidv4 } = require('uuid')
 const axios = require('axios');
 
+const BingApiKey = process.env.BingApiKey
 
-const BingApiKey = 'AqoGN0E0UWeq7zFB8DruRzIzqNgQZb862e00WsMjQy7hVPRivBv8PPk31dVRi5uG';
 
 
 const validateAddress = async (address) => {
@@ -160,7 +161,47 @@ const getCustomerOrders = (req, res) => {
     const data = {
         bingMapsKey: BingApiKey
     };
-    res.status(201).render('customer_orders', data)
+    const token = req.cookies.customer;
+    jwt.verify(token, 'JWT', async (error, decoded) => {
+        if (!error) {
+            try {
+                if (!decoded) {
+                    return res.status(401).json({ error: 'Unauthorized' });
+                }
+                const customer = await Customer.findById(decoded.id)
+                console.log(customer)
+                if (customer) {
+                    const orders = await Order.find({ customer: decoded.id })
+                    return res.status(201).render('customer_orders', { ...data, orders })
+                }
+            } catch (error) {
+                console.log(error)
+            }
+        }
+    })
+}
+
+const order = (req, res) => {
+    const { id } = req.query
+    const token = req.cookies.customer;
+    jwt.verify(token, 'JWT', async (error, decoded) => {
+        if (!error) {
+            try {
+                if (!decoded) {
+                    return res.status(401).json({ error: 'Unauthorized' });
+                }
+                const customer = await Customer.findById(decoded.id)
+                console.log(customer)
+                if (customer) {
+                    const order = await Order.findOne({ _id: id, customer: decoded.id })
+                    console.log(order)
+                    return res.status(201).render('order', { order })
+                }
+            } catch (error) {
+                console.log(error)
+            }
+        }
+    })
 }
 
 
@@ -259,4 +300,4 @@ const getCustomerOrders = (req, res) => {
 //};
 
 
-module.exports = { getCustomerOrders, postCustomerOrders }
+module.exports = { getCustomerOrders, postCustomerOrders, order }
