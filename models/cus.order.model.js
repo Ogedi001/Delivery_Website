@@ -20,8 +20,9 @@ const OrderSchema = new Schema({
     orderDate: {
         type: String,
         required: true,
-        default: new Date().toLocaleTimeString('en-US', { month: 'short', day: 'numeric' })
+        default: () => new Date().toLocaleTimeString('en-US', { month: 'short', day: 'numeric' })
     },
+
     OrderDuration: {
         distance_km: {
             type: Number,
@@ -43,16 +44,17 @@ const OrderSchema = new Schema({
     },
     pickupLocation: {
         type: String,
-        required: true
+        required: [true, "valid pick up address is required"]
     },
     dropoffLocation: {
         type: String,
-        required: true
+        required: [true, "valid droff off address is required"]
+
     },
     itemType: {
         type: String,
         enum: ['Groceries', 'Accessories', 'Books', 'Clothes', 'Electronics', 'Furniture', 'Other'],
-        required: true
+        required: [true, 'Please select the Item type']
     },
     itemImage: {
         type: String

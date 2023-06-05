@@ -30,6 +30,7 @@
                 <th>Pickup Location</th>
                 <th>Drop-off Location</th>
                 <th>Distance_km</th>
+                <th>Type of Item</th>
                 <th>Order Amount</th>
                 <th>Order Status</th>
 
@@ -55,8 +56,13 @@
                     <%= order.OrderDuration.distance_km %>
                 </td>
                 <td>
+                    <%= order.itemType %>
+                </td>
+
+                <td>
                     <%= order.OrderAmount %>
                 </td>
+
                 <td>
                     <%= order.orderStatus %>
                 </td>
@@ -65,7 +71,20 @@
 
         </tbody>
     </table>
-    <button>Delete order</button>
+    <button class="btn btn-danger" onclick="deleteOrder('<%= order._id %>')">
+        <i class="fas fa-trash"></i> Delete
+    </button>
 </body>
+<script>
+    const deleteOrder = async (id) => {
+        let url = '/order/delete?id=' + id
+        const response = await fetch(url, {
+            method: 'DELETE',
+        })
+        const results = await response.json()
+        console.log(results)
+        window.location.href = "/customer/orders-all"
+    }
+</script>
 
 </html>
