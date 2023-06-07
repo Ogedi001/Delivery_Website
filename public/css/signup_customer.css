@@ -1,84 +1,119 @@
 /* Main container */
-.container {
-    margin: auto;
-    max-width: 500px;
-    padding: 20px;
-  }
-  
-  /* Form styles */
-  form {
-    background-color: #fff;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    padding: 20px;
-  }
-  
-  form h2 {
-    font-size: 28px;
-    font-weight: 700;
-    margin-bottom: 20px;
-    text-align: center;
-  }
-  
-  form label {
-    display: block;
-    font-size: 18px;
-    font-weight: 700;
-    margin-bottom: 10px;
-  }
-  
-  form input[type="text"], form input[type="email"], form input[type="password"] {
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    font-size: 18px;
-    margin-bottom: 15px;
-    padding: 10px;
-    width: 100%;
-  }
-  
-  form input[type="submit"] {
-    background-color: #000;
-    border: none;
-    border-radius: 5px;
-    color: #fff;
-    cursor: pointer;
-    font-size: 18px;
-    font-weight: 700;
-    margin-top: 20px;
-    padding: 10px 20px;
-    transition: background-color 0.3s ease;
-    width: 100%;
-  }
-  
-  form input[type="submit"]:hover {
-    background-color: #333;
-  }
-  form input[type="text"]::placeholder,
-form input[type="email"]::placeholder,
-form input[type="password"]::placeholder {
-  color: #999;
+
+
+/* Form styles */
+form {
+  background-color: #f0f9fc;
+  border: 2px solid #ccc;
+  border-radius: 5px;
+  padding: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 2rem;
 }
 
-  
+form input.form-control {
+  background-color: #ffffff;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  padding: 10px;
+  width: 100%;
+  margin-bottom: 1rem;
+}
+form label {
+  font-weight: bold;
+}
+
+form span {
+  color: red;
+  font-size: 0.8rem;
+  font-weight: bold;
+  margin-top: 0.5rem;
+}
+.form-check-input[type="checkbox"]:checked {
+  background-color: #28a745;
+  border-color: #28a745;
+}
+button[type="submit"]{
+  font-weight: bold;
+  margin-right: 0.8rem;
+}
+
+/* nav */
+nav {
+  background-color: #0F3057;
+  color: #ffffff;
+
+}
+
+
+.navbar-brand {
+  background-color: transparent;
+  color: #ffffff;
+}
+
+
+.navbar .btn-dark {
+  margin-right: 10px;
+}
+
+a {
+  color: #dde1e5;
+  padding: 10px 20px;
+  border-radius: 5px;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+}
+
+a:hover {
+  background-color: #03A9F4;
+  /* Clean Blue */
+}
+
+.dropdown-toggle:hover,
+.nav-item.btn-dark:hover {
+  background-color: #1d3d6f;
+  color: #ffffff;
+}
+
+.dropdown-toggle:hover .fa-user-plus,
+.nav-item.btn-dark:hover .fas.fa-sign-in-alt {
+  color: #ffffff;
+  /* Update with your desired hover icon color */
+}
+
+.password-input-container {
+  position: relative;
+
+}
+
+.password-toggle-icon {
+  color: black;
+  font-size: 1.2rem;
+  position: absolute;
+  top: 40%;
+  right: 10px;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+
   /* Error message styles */
-  .error-message {
-    background-color: #ffdddd;
-    border: 1px solid #ff9999;
-    border-radius: 5px;
-    color: #ff4444;
-    font-size: 16px;
-    margin-bottom: 10px;
-    padding: 10px;
-  }
-  
-  /* Success message styles */
-  .success-message {
-    background-color: #ddffdd;
-    border: 1px solid #99ff99;
-    border-radius: 5px;
-    color: #22aa22;
-    font-size: 16px;
-    margin-bottom: 10px;
-    padding: 10px;
-  }
-  
+/* .error-message {
+  background-color: #ffdddd;
+  border: 1px solid #ff9999;
+  border-radius: 5px;
+  color: #ff4444;
+  font-size: 16px;
+  margin-bottom: 10px;
+  padding: 10px;
+} */
+
+/* Success message styles */
+/* .success-message {
+  background-color: #ddffdd;
+  border: 1px solid #99ff99;
+  border-radius: 5px;
+  color: #22aa22;
+  font-size: 16px;
+  margin-bottom: 10px;
+  padding: 10px;
+} */

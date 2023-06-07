@@ -1,108 +1,100 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<%- include('./partials/header') %>
     <title>Customer page</title>
-</head>
+    </head>
 
-<body>
+    <body>
 
-    <header>
-        <div class="logo">
-            <img src="logo.png" alt="logo">
-            <h2>Welcome back <%= customer.username %>
-            </h2>
-        </div>
-        <nav>
-            <ul>
-                <li><a href="/home">Home</a></li>
-                <li><a href="/customer/orders">Orders</a></li>
-                <li><a href="/customer/profile">Profile</a></li>
-                <li><a href="/customer/signout">log Out</a></li>
-            </ul>
-        </nav>
-    </header>
+        <header>
+            <div class="logo">
+                <img src="logo.png" alt="logo">
+                <h2>Welcome back <%= customer.username %>
+                </h2>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="/home">Home</a></li>
+                    <li><a href="/customer/orders">Orders</a></li>
+                    <li><a href="/customer/profile">Profile</a></li>
+                    <li><a href="/customer/signout">log Out</a></li>
+                </ul>
+            </nav>
+        </header>
 
-    <main>
-        <section class="order-history">
-            <h2>Order History</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Order ID</th>
-                        <th>Date</th>
-                        <th>Order Status</th>
-                        <th>Payment Status</th>
-                        <th>Total Price</th>
-                        <th>Details</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>March 20, 2023</td>
-                        <td>Delivered</td>
-                        <td>Paid</td>
-                        <td>$20.00</td>
-                        <td><a href="#">View Details</a></td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>March 19, 2023</td>
-                        <td>Cancelled</td>
-                        <td>Refunded</td>
-                        <td>$15.00</td>
-                        <td><a href="#">View Details</a></td>
-                    </tr>
-                    <!-- more order history items -->
-                </tbody>
-            </table>
-        </section>
+        <main>
+            <section class="order-history">
+                <h2>Order History</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Order ID</th>
+                            <th>Date</th>
+                            <th>Order Status</th>
+                            <th>Payment Status</th>
+                            <th>Total Price</th>
+                            <th>Details</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>March 20, 2023</td>
+                            <td>Delivered</td>
+                            <td>Paid</td>
+                            <td>$20.00</td>
+                            <td><a href="#">View Details</a></td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>March 19, 2023</td>
+                            <td>Cancelled</td>
+                            <td>Refunded</td>
+                            <td>$15.00</td>
+                            <td><a href="#">View Details</a></td>
+                        </tr>
+                        <!-- more order history items -->
+                    </tbody>
+                </table>
+            </section>
 
-        <section class="delivery-details">
-            <h2>Delivery Details</h2>
-            <ul>
-                <li><strong>Name:</strong>
-                    <%= customer.name %>
-                </li>
-                <li><strong>Address:</strong>
-                    <%= customer.address %>
-                </li>
-                <li><strong>Phone:</strong>
-                    <%= customer.phoneNumber %>
-                </li>
-                <li><strong>Email:</strong>
-                    <%= customer.email %>
-                </li>
-                <li><a href="#">Edit Details</a></li>
-            </ul>
-        </section>
+            <section class="delivery-details">
+                <h2>Delivery Details</h2>
+                <ul>
+                    <li><strong>Name:</strong>
+                        <%= customer.name %>
+                    </li>
+                    <li><strong>Address:</strong>
+                        <%= customer.address %>
+                    </li>
+                    <li><strong>Phone:</strong>
+                        <%= customer.phoneNumber %>
+                    </li>
+                    <li><strong>Email:</strong>
+                        <%= customer.email %>
+                    </li>
+                    <li><a href="#">Edit Details</a></li>
+                </ul>
+            </section>
 
-        <section class="payment-methods">
-            <h2>Payment Methods</h2>
-            <ul>
-                <li><strong>Credit Card:</strong> **** **** **** 1234</li>
-                <li><strong>Paypal:</strong> johndoe@example.com</li>
-                <li><a href="#">Manage Payment Methods</a></li>
-            </ul>
-        </section>
+            <section class="payment-methods">
+                <h2>Payment Methods</h2>
+                <ul>
+                    <li><strong>Credit Card:</strong> **** **** **** 1234</li>
+                    <li><strong>Paypal:</strong> johndoe@example.com</li>
+                    <li><a href="#">Manage Payment Methods</a></li>
+                </ul>
+            </section>
 
-        <section class="support">
-            <h2>Support</h2>
-            <p>For any questions or issues, please contact our support team:</p>
-            <ul>
-                <li><strong>Phone:</strong> (123) 456-7890</li>
-                <li><strong>Email:</strong> support@myapp.com</li>
-            </ul>
-        </section>
-    </main>
+            <section class="support">
+                <h2>Support</h2>
+                <p>For any questions or issues, please contact our support team:</p>
+                <ul>
+                    <li><strong>Phone:</strong> (123) 456-7890</li>
+                    <li><strong>Email:</strong> support@myapp.com</li>
+                </ul>
+            </section>
+        </main>
+        <%- include('./partials/footer') %>
 
-    <footer>
-    </footer>
+    </body>
 
-</body>
-
-</html>
+    </html>

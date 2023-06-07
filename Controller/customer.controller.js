@@ -44,7 +44,8 @@ const RegCustomer = async (req, res) => {
             }
             console.log(errors)
 
-            return res.status(400).render('signup_customer', { errors: errors, value: req.body, passwordMSG: null });
+            return res.status(400).render('signup_customer', { errors, value: req.body, passwordMSG: null, invalidErrors: null });
+
         }
 
         if (error.name === 'ValidationError') {
@@ -53,7 +54,7 @@ const RegCustomer = async (req, res) => {
                 invalidErrors[err.path] = err.message
             })
             console.log(invalidErrors)
-            return res.status(400).render('signup_customer', { errors: null, value: req.body, passwordMSG: null, invalidErrors: invalidErrors })
+            return res.status(400).render('signup_customer', { errors: null, value: req.body, passwordMSG: null, invalidErrors })
         }
 
         else {

@@ -1,138 +1,104 @@
-<!DOCTYPE html>
-<html>
-
-<head>
-    <title>My Delivery Website</title>
-    <!-- Bootstrap CSS -->
-    <!-- https://cdnjs.com/libraries/bootstrap/5.0.0-beta3 -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.0-beta3/css/bootstrap.min.css">
-
-    <!-- Font Awesome CSS -->
-    <!-- https://cdnjs.com/libraries/font-awesome/5.15.4 -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300&family=Montserrat:wght@100;200;400&display=swap"
-        rel="stylesheet">
-
+<%- include('./partials/header') %>
     <link rel="stylesheet" href="./css/homepage.css">
-</head>
+    </head>
 
-<body>
-    <header>
-        <nav class="navbar navbar-expand-lg">
-            <div class="container-fluid">
-                <a class="navbar-brand" href="#">
-                    Delivery Website
-                </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#collapsibleNavbar">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="collapsibleNavbar">
-                    <ul class="navbar-nav mx-auto">
-                        <li class="nav-item mr-3">
-                            <a class="nav-link" href="#"><i class="fas fa-home"></i> Home</a>
-                        </li>
-                        <li class="nav-item mr-3">
-                            <a class="nav-link" href="#"><i class="fas fa-user"></i> Profile</a>
-                        </li>
-                        <li class="nav-item mr-3">
-                            <a class="nav-link" href="#"><i class="fas fa-info-circle"></i> About Us</a>
-                        </li>
-                        <li class="nav-item mr-3">
-                            <a class="nav-link" href="#"><i class="fas fa-question-circle"></i> FAQ</a>
-                        </li>
-                    </ul>
-                    <ul class="navbar-nav ms-auto">
-                        <li class="nav-item">
-                            <div class="dropdown">
-                                <a class="btn btn-dark dropdown-toggle" href="#" role="button" id="dropdownID"
-                                    data-bs-toggle="dropdown" aria-expanded="false">
-                                    <i class="fas fa-user-plus"></i> Sign Up
-                                </a>
-                                <ul class="dropdown-menu" aria-labelledby="dropdownID">
-                                    <li><a class="dropdown-item" href="/signup/rider" name="signup" value="rider"><i
-                                                class="fas fa-motorcycle"></i> Rider Agent</a></li>
-                                    <li><a class="dropdown-item" href="/signup/customer" name="signup"
-                                            value="customer"><i class="fas fa-user"></i> Customer</a></li>
-                                </ul>
-                            </div>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link btn btn-dark" href="/login"><i class="fas fa-sign-in-alt"></i> Login</a>
-                        </li>
-                        <li class="nav-item">
-                            <label class="h4 switch">
-                                <input id="switch" type="checkbox" class="me-2">
-                                <span class="slider"></span>
-                            </label>
-                            <span id="light" class="h4 switch"><i class="fas fa-sun"></i></span>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-
-    </header>
-
-
-    <main>
-        <div class="container">
-            <div class="heroSection row ">
-                <div class="col">
-                    <div text-container>
-                        <h2>Welcome to our delivery service</h2>
-                        <p>We deliver anything from anywhere to everywhere.</p>
-                        <p>Our delivery service is fast, reliable, and affordable.</p>
-                        <p>Get started by creating an account or logging in.</p>
-                    </div>
-                    <div class="dropdown">
-                        <button class="btn btn-outline-primary dropdown-toggle" type="button" id="dropdownID"
-                            data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user-plus"></i>
-                            Sign Up
-                        </button>
-                        <ul class="dropdown-menu" aria-labelledby="dropdownID">
-                            <li><a class="dropdown-item" href="/signup/rider"><i class="fas fa-motorcycle"></i> Rider
-                                    Agent</a></li>
-                            <li><a class="dropdown-item" href="/signup/customer"><i class="fas fa-user"></i>
-                                    Customer</a></li>
+    <body>
+        <header>
+            <nav class="navbar navbar-expand-lg">
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="#">
+                        Delivery Website
+                    </a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#collapsibleNavbar">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="collapsibleNavbar">
+                        <ul class="navbar-nav mx-auto">
+                            <li class="nav-item mr-3">
+                                <a class="nav-link" href="#"><i class="fas fa-home"></i> Home</a>
+                            </li>
+                            <li class="nav-item mr-3">
+                                <a class="nav-link" href="#"><i class="fas fa-user"></i> Profile</a>
+                            </li>
+                            <li class="nav-item mr-3">
+                                <a class="nav-link" href="#"><i class="fas fa-info-circle"></i> About Us</a>
+                            </li>
+                            <li class="nav-item mr-3">
+                                <a class="nav-link" href="#"><i class="fas fa-question-circle"></i> FAQ</a>
+                            </li>
                         </ul>
-                        <span>or</span>
-                        <a class="nav-link btn btn-outline-dark" href="/login"><i class="fas fa-sign-in-alt"></i>
-                            Login</a>
+                        <ul class="navbar-nav ms-auto">
+                            <li class="nav-item">
+                                <div class="dropdown">
+                                    <a class="btn btn-dark dropdown-toggle" href="#" role="button" id="dropdownID"
+                                        data-bs-toggle="dropdown" aria-expanded="false">
+                                        <i class="fas fa-user-plus"></i> Sign Up
+                                    </a>
+                                    <ul class="dropdown-menu" aria-labelledby="dropdownID">
+                                        <li><a class="dropdown-item" href="/signup/rider" name="signup" value="rider"><i
+                                                    class="fas fa-motorcycle"></i> Rider Agent</a></li>
+                                        <li><a class="dropdown-item" href="/signup/customer" name="signup"
+                                                value="customer"><i class="fas fa-user"></i> Customer</a></li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link btn btn-dark" href="/login"><i class="fas fa-sign-in-alt"></i>
+                                    Login</a>
+                            </li>
+                            <li class="nav-item">
+                                <label class="h4 switch">
+                                    <input id="switch" type="checkbox" class="me-2">
+                                    <span class="slider"></span>
+                                </label>
+                                <span id="light" class="h4 switch"><i class="fas fa-sun"></i></span>
+                            </li>
+                        </ul>
                     </div>
-
                 </div>
-                <div class="col">
-                    <img src="./image/delivery-man3.jpeg" alt="" class="img-fluid img-thumbnail">
+            </nav>
+
+        </header>
+
+
+        <main>
+            <div class="container">
+                <div class="heroSection row ">
+                    <div class="col">
+                        <div text-container>
+                            <h2>Welcome to our delivery service</h2>
+                            <p>We deliver anything from anywhere to everywhere.</p>
+                            <p>Our delivery service is fast, reliable, and affordable.</p>
+                            <p>Get started by creating an account or logging in.</p>
+                        </div>
+                        <div class="dropdown">
+                            <button class="btn btn-outline-primary dropdown-toggle" type="button" id="dropdownID"
+                                data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user-plus"></i>
+                                Sign Up
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownID">
+                                <li><a class="dropdown-item" href="/signup/rider"><i class="fas fa-motorcycle"></i>
+                                        Rider
+                                        Agent</a></li>
+                                <li><a class="dropdown-item" href="/signup/customer"><i class="fas fa-user"></i>
+                                        Customer</a></li>
+                            </ul>
+                            <span>or</span>
+                            <a class="nav-link btn btn-outline-dark" href="/login"><i class="fas fa-sign-in-alt"></i>
+                                Login</a>
+                        </div>
+
+                    </div>
+                    <div class="col">
+                        <img src="./image/delivery-man3.jpeg" alt="" class="img-fluid img-thumbnail">
+                    </div>
                 </div>
             </div>
-        </div>
-    </main>
+        </main>
+        <%- include('./partials/footer') %>
 
-    <footer class=" text-light">
-        <div class="container py-3">
-            <div class="row">
-                <div class="col-12 col-md-6">
-                    <h4>About Us</h4>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce in ante ut velit pulvinar
-                        ullamcorper. Donec congue varius nisi, id feugiat purus.</p>
-                </div>
-                <div class="col-12 col-md-6">
-                    <h4>Contact Us</h4>
-                    <p>123 Main St<br>Anytown, USA 12345<br>Email: info@mycompany.com<br>Phone: 123-456-7890</p>
-                </div>
-            </div>
-            <hr>
-            <p class="text-center">&copy; 2023 My Delivery Website</p>
-        </div>
-    </footer>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.0-beta3/js/bootstrap.bundle.min.js"></script>
+    </body>
 
-</body>
-
-</html>
+    </html>

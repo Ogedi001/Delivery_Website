@@ -1,35 +1,11 @@
 /* Set default font and color */
-* {
-  box-sizing: border-box;
-}
-
-body {
-  background: linear-gradient(45deg, #C0EEF2 50%, #E6F7FF 50%);
-  background-size: 200% 200%;
-  animation: gradientAnimation 10s linear infinite;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-  font-family: 'Montserrat', sans-serif;
-}
-
-@keyframes gradientAnimation {
-  0% {
-    background-position: 0% 50%;
-  }
-  100% {
-    background-position: 100% 50%;
-  }
-}
 
 
 
 nav {
   background-color: #0F3057;
   color: #ffffff;
-  
+
 }
 
 
@@ -44,7 +20,7 @@ nav {
 }
 
 a {
-  color: #dde1e5 ;
+  color: #dde1e5;
   padding: 10px 20px;
   border-radius: 5px;
   text-decoration: none;
@@ -52,17 +28,20 @@ a {
 }
 
 a:hover {
-  background-color: #03A9F4; /* Clean Blue */
+  background-color: #03A9F4;
+  /* Clean Blue */
 }
+
 .dropdown-toggle:hover,
 .nav-item.btn-dark:hover {
-  background-color: #1d3d6f; 
+  background-color: #1d3d6f;
   color: #ffffff;
 }
 
 .dropdown-toggle:hover .fa-user-plus,
 .nav-item.btn-dark:hover .fas.fa-sign-in-alt {
-  color: #ffffff; /* Update with your desired hover icon color */
+  color: #ffffff;
+  /* Update with your desired hover icon color */
 }
 
 /* Main content section */
@@ -75,9 +54,6 @@ main {
 .text-container {
   margin-bottom: 30px;
 }
-h1,h2,h3{
-  font-family:'Merriweather', serif;
-}
 
 h2 {
   font-size: 3.7rem;
@@ -85,11 +61,7 @@ h2 {
   color: #333;
 }
 
-p {
-  font-size: 18px;
-  line-height: 1.5;
-  color: #666;
-}
+
 .dropdown {
   display: flex;
   align-items: center;
@@ -106,7 +78,7 @@ p {
 }
 
 .dropdown a {
- 
+
   text-decoration: none;
 }
 
@@ -117,18 +89,4 @@ p {
   object-fit: cover;
   border-radius: 5px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-
-
-
-
-
-
-/* Footer section */
-footer {
-  background-color: #053b54; /* Clean Blue */
-  color: #FFF; /* White */
-  text-align: center;
-  padding: 10px;
 }
