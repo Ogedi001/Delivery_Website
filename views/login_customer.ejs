@@ -1,22 +1,118 @@
 <%- include('./partials/header') %>
+    <title>Customer Login</title>
+    <link rel="stylesheet" href="/css/customer_form.css">
 
     </head>
 
     <body>
-        <h4>
-            <%= error %>
-        </h4>
-        <form method="post" action="/login">
-            <label for="email-username">Email or Username:</label>
-            <input type="text" id="email_username" name="email_username"
-                value="<%= value && value.email_username? value.email_username : '' %>">
+        <header>
+            <nav class="navbar navbar-expand-lg">
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="#">
+                        Delivery Website
+                    </a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#collapsibleNavbar">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="collapsibleNavbar">
+                        <ul class="navbar-nav mx-auto">
+                            <li class="nav-item mr-3">
+                                <a class="nav-link" href="#"><i class="fas fa-home"></i> Home</a>
+                            </li>
+                            <li class="nav-item mr-3">
+                                <a class="nav-link" href="#"><i class="fas fa-user"></i> Profile</a>
+                            </li>
+                            <li class="nav-item mr-3">
+                                <a class="nav-link" href="#"><i class="fas fa-info-circle"></i> About Us</a>
+                            </li>
+                            <li class="nav-item mr-3">
+                                <a class="nav-link" href="#"><i class="fas fa-question-circle"></i> FAQ</a>
+                            </li>
+                        </ul>
+                        <ul class="navbar-nav ms-auto">
+                            <li class="nav-item">
+                                <div class="dropdown">
+                                    <a class="btn btn-dark dropdown-toggle" href="#" role="button" id="dropdownID"
+                                        data-bs-toggle="dropdown" aria-expanded="false">
+                                        <i class="fas fa-user-plus"></i> Sign Up
+                                    </a>
+                                    <ul class="dropdown-menu" aria-labelledby="dropdownID">
+                                        <li><a class="dropdown-item" href="/signup/rider" name="signup" value="rider"><i
+                                                    class="fas fa-motorcycle"></i> Rider Agent</a></li>
+                                        <li><a class="dropdown-item" href="/signup/customer" name="signup"
+                                                value="customer"><i class="fas fa-user"></i> Customer</a></li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li class="nav-item">
+                                <label class="h4 switch">
+                                    <input id="switch" type="checkbox" class="me-2">
+                                    <span class="slider"></span>
+                                </label>
+                                <span id="light" class="h4 switch"><i class="fas fa-sun"></i></span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <div class="container">
+            <div class="d-flex justify-content-center">
+                <div class="col-md-5">
+                    <h1 class="text-center mt-5 mb-2">Welcome! login</h1>
 
-            <label for="password">Password:</label>
-            <input type="password" id="password" name="password">
+                    <form method="post" action="/login">
+                        <span class="mb-3">
+                            <%= error %>
+                        </span>
+                        <div class="form-floating mb-3">
+                            <input type="text" id="email_username" name="email_username" class="form-control"
+                                value="<%= value && value.email_username ? value.email_username : '' %>">
+                            <label for="email_username">Email or Username</label>
+                        </div>
 
-            <button type="submit">Log In</button>
-        </form>
+                        <div class="form-floating mb-3">
+                            <input type="password" id="password" name="password" class="form-control">
+                            <label for="password">Password</label>
+                            <span class="password-toggle-icon">
+                                <i class="fas fa-eye"></i>
+                            </span>
+                        </div>
+
+                        <div class="form-check mb-4">
+                            <input class="form-check-input" type="checkbox" id="rememberMe">
+                            <label class="form-check-label" for="rememberMe">
+                                Remember Me
+                            </label>
+                        </div>
+
+
+                        <div class="d-flex justify-content-center">
+                            <button type="submit" class="btn btn-outline-success text-center"><i
+                                    class="fas fa-sign-in-alt"></i>
+                                login</button>
+                            <div class="dropdown">
+                                <button class="btn btn-outline-primary dropdown-toggle" type="button" id="dropdownID"
+                                    data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user-plus"></i>
+                                    Sign Up
+                                </button>
+                                <ul class="dropdown-menu" aria-labelledby="dropdownID">
+                                    <li><a class="dropdown-item" href="/signup/rider"><i class="fas fa-motorcycle"></i>
+                                            Rider
+                                            Agent</a></li>
+                                    <li><a class="dropdown-item" href="/signup/customer"><i class="fas fa-user"></i>
+                                            Customer</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
         <%- include('./partials/footer') %>
+            <script src="/jscript/customer_form.js"></script>
     </body>
 
     </html>

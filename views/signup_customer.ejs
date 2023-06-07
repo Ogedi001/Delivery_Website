@@ -1,9 +1,8 @@
 <%- include('./partials/header') %>
-  <title>Customer Sign-up</title>
-  <link rel="stylesheet" href="/css/signup_customer.css">
-  <style>
 
-  </style>
+  <title>Customer Sign-up</title>
+  <link rel="stylesheet" href="/css/customer_form.css">
+
   </head>
 
   <body>
@@ -123,7 +122,7 @@
                 <span id="errorMsg">
                   <%= invalidErrors && invalidErrors.password ? invalidErrors.password : '' %>
                 </span>
-                <span class="password-toggle-icon" value="1">
+                <span class="password-toggle-icon">
                   <i class="fas fa-eye"></i>
                 </span>
               </div>
@@ -166,7 +165,7 @@
       </div>
     </div>
     <%- include('./partials/footer') %>
-      <script src="/jscript/signup_customer.js"></script>
+      <script src="/jscript/customer_form.js"></script>
   </body>
 
   </html>
