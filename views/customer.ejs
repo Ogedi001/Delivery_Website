@@ -39,7 +39,16 @@
                             <ul class="navbar-nav d-flex align-items-center">
                                 <li class="nav-item mr-3">
                                     <div class="d-flex align-items-center">
-                                        <a class="nav-link" href="#"><i class="fas fa-user-circle fa-2x"></i></a>
+                                        <div class="dropdown">
+                                            <a class="nav-link" href="#" onmouseover="showSignOutDropdown()"
+                                                onmouseout="hideSignOutDropdown()">
+                                                <i class="fas fa-user-circle fa-2x"></i>
+                                            </a>
+                                            <div class="dropdown-content" id="signOutDropdown" style="display:none ;"
+                                                onmouseover="showSignOutDropdown()" onmouseout="hideSignOutDropdown()">
+                                                <a href="/customer/signout">Sign Out</a>
+                                            </div>
+                                        </div>
                                         <span class="mb-2 mx-auto">
                                             <%= customer.name %>
                                         </span>
@@ -81,15 +90,19 @@
                 </section>
 
                 <section class="col">
-                        <h2>Delivery Details</h2>
-                        <div class="delivery-details">
-                            <table class="row">
-                              <thead style="background-color: rgb(151, 139, 139);" class="row">
+                    <h2>Delivery Details</h2>
+                    <div class="delivery-details">
+                        <table class="row">
+                            <thead style="background-color: rgb(151, 139, 139);" class="row d-flex justify-content-end">
                                 <tr>
-                                  <th class="col"><strong>My account</strong></th>
-                                  <th class="col d-flex " ><button class="btn btn-primary ms-auto">Settings</button></th>
+                                    <th class="col"><strong>My account</strong></th>
+                                    <th class="col ">
+
+                                        <button class="btn btn-primary mx-auto">Settings</button>
+
+                                    </th>
                                 </tr>
-                              </thead>
+                            </thead>
                             <tbody>
                                 <tr>
                                     <td><strong>User information</strong></td>
@@ -184,7 +197,17 @@
             </section>
         </main>
         <%- include('./partials/footer') %>
+            <script>
+                function showSignOutDropdown() {
+                    var dropdown = document.getElementById("signOutDropdown");
+                    dropdown.style.display = "block";
+                }
 
+                function hideSignOutDropdown() {
+                    var dropdown = document.getElementById("signOutDropdown");
+                    dropdown.style.display = "none";
+                }
+            </script>
     </body>
 
     </html>

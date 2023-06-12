@@ -40,14 +40,11 @@ a:hover {
   margin-left: 0.8rem;
 }
 
-.delivery-details{
+.delivery-details {
   width: 700px;
   margin: 0 auto;
   background-color: #fff;
   border-radius: 5px;
   padding: 5px 10px 30px 30px;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-}
-.end{
-  margin-inline-end: auto;
 }
