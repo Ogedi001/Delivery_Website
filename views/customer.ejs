@@ -85,7 +85,7 @@
                     </h1>
                     <p class="text-center">This is your profile page. You can see all user info, place new orders, track
                         orders by navigating to respective pages, choose payment types, and contact support.</p>
-                    <button class="btn btn-outline-primary">Edit Profile</button>
+                    <button class="btn btn-outline-primary" onclick='upDateProfile()'>Edit Profile</button>
 
                 </section>
 
@@ -93,12 +93,12 @@
                     <h2>Delivery Details</h2>
                     <div class="delivery-details">
                         <table class="row">
-                            <thead style="background-color: rgb(151, 139, 139);" class="row d-flex justify-content-end">
+                            <thead style="background-color: rgb(151, 139, 139);" class="row d-flex ">
                                 <tr>
                                     <th class="col"><strong>My account</strong></th>
-                                    <th class="col ">
+                                    <th class="col">
 
-                                        <button class="btn btn-primary mx-auto">Settings</button>
+                                        <button class="btn btn-primary mx">Settings</button>
 
                                     </th>
                                 </tr>
@@ -206,6 +206,10 @@
                 function hideSignOutDropdown() {
                     var dropdown = document.getElementById("signOutDropdown");
                     dropdown.style.display = "none";
+                }
+
+                const upDateProfile = () => {
+                    window.location.href = '/customer/profile'
                 }
             </script>
     </body>
