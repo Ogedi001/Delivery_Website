@@ -2,6 +2,9 @@ const Customer = require('./../models/cus.reg.model')
 const jwt = require('jsonwebtoken');
 const multer = require('multer')
 const bcrypt = require('bcrypt')
+const fs = require('fs');
+const path = require('path');
+
 
 
 // Set storage engine for Multer
@@ -17,7 +20,7 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage })
 
 const getCustomerProfile = (req, res) => {
-    res.status(201).render('customer_profile', { passwordError: null, value: null, successMessage: null })
+    res.status(201).render('customer_profileUpdate', { passwordError: null, value: null, successMessage: null })
 }
 
 
@@ -38,12 +41,12 @@ const uploadProfilePics = (req, res) => {
                 }
                 await customer.save()
                 console.log('image uploaded successfully')
-                res.redirect('/customer/profile')
+                res.status(201).json({ Message: " Profile picture uploaded successfully" })
                 return;
             }
             catch (error) {
                 console.log(error)
-                res.status(500).send('Internal server error')
+                return res.status(500).send('Error 500 : Internal server error ')
             }
         }
 
@@ -53,18 +56,42 @@ const uploadProfilePics = (req, res) => {
     );
 }
 const removeProfilePICS = async (req, res) => {
-    const token = req.cookies.customer
+    const token = req.cookies.customer;
     jwt.verify(token, 'JWT', async (error, decoded) => {
         if (!error) {
-            const customer = await Customer.findById(decoded.id)
-            customer.profile_pic = null
-            await customer.save()
-            res.redirect('/customer/profile')
-            return
+            try {
+                const customerId = decoded.id;
+                const customer = await Customer.findById(customerId);
+
+                if (customer.profile_pic) {
+                    const relativeFilePath = customer.profile_pic.data.toString();
+                    console.log(relativeFilePath)
+                    const absoluteFilePath = path.join('./', 'public', 'uploads', relativeFilePath);
+                    console.log(absoluteFilePath)
+
+                    // Delete the profile picture file from the filesystem
+                    fs.unlinkSync(absoluteFilePath);
+
+                    // Remove the profile picture reference from the customer document
+                    customer.profile_pic = null;
+                    await customer.save();
+                    res.status(201).json({ Message: " Profile picture removed successfully" })
+                    return;
+                }
+
+                res.sendStatus(200);
+            } catch (error) {
+                console.log(error);
+                res.status(500).json({ error: 'An error occurred while removing the profile picture.' });
+            }
+        } else {
+            console.log(error);
+            res.status(401).json({ error: 'Unauthorized' });
         }
-        console.log(error)
-    })
-}
+    });
+};
+
+
 
 const updateEmail = async (req, res) => {
     const { newEmail } = req.body
@@ -77,7 +104,7 @@ const updateEmail = async (req, res) => {
             await customer.save()
             console.log('email updated successfully')
 
-            res.status(201).render('customer_profile', { passwordError: null, value: null, successMessage: 'email updated successfully!' })
+            res.status(201).json({ Message: 'Email updated successfully!' })
 
             return
         }
@@ -95,11 +122,11 @@ const updatePhoneNumber = (req, res) => {
             customer.phoneNumber = newPhone
             await customer.save()
 
-            res.status(201).render('customer_profile', { passwordError: null, value: null, successMessage: 'Phone number updated successfully!' })
+            res.status(201).json({ Message: 'Phone number updated successfully!' })
 
             return
         }
-        console.log(error)
+        console.log(JSON.stringify(error))
     })
 }
 const updateAddress = (req, res) => {
@@ -111,11 +138,11 @@ const updateAddress = (req, res) => {
             customer.address = newAddress
             await customer.save()
 
-            res.status(201).render('customer_profile', { passwordError: null, value: null, successMessage: 'Address updated successfully!' })
+            res.status(201).json({ Message: 'Address updated successfully!' })
 
             return
         }
-        console.log(error)
+        console.log(JSON.stringify(error))
     })
 }
 const changePassword = async (req, res) => {
@@ -126,29 +153,28 @@ const changePassword = async (req, res) => {
         try {
             if (!error) {
                 const customer = await Customer.findById(decoded.id)
+                console.log(current_password)
                 const isvalid = bcrypt.compareSync(current_password, customer.password)
                 console.log(isvalid)
                 if (!isvalid) {
 
-                    res.status(400).render('customer_profile', { passwordError: 'current password is incorrect', value: null, successMessage: null })
-                    return
+                    return res.status(400).json({ Message: 'current password is incorrect' })
+
                 }
                 if (new_password !== confirm_password) {
-                    res.status(400).render('customer_profile', { passwordError: 'password do not match', value: req.body, successMessage: null })
-                    return
+                    return res.status(400).json({ Message: 'New password and confirm password do not match' });
                 }
                 customer.password = new_password
                 await customer.save()
 
-                res.status(201).render('customer_profile', { passwordError: null, value: null, successMessage: 'Password updated successfully!' })
+                return res.status(200).json({ Message: 'Password updated successfully' });
 
-                return
             }
         } catch (error) {
             const Error = error.errors.password.message
 
             //console.log(JSON.stringify(error))
-            res.status(400).render('customer_profile', { passwordError: Error, value: req.body, successMessage: null })
+            res.status(400).json({ Message: Error })
         }
 
 
@@ -156,7 +182,7 @@ const changePassword = async (req, res) => {
     })
 }
 const reloadPage = (req, res) => {
-    res.redirect('/customer/profile')
+    res.redirect('/customer/profileUpdate')
 }
 
 module.exports = { getCustomerProfile, uploadProfilePics, upload, updateEmail, updatePhoneNumber, updateAddress, removeProfilePICS, changePassword, reloadPage }

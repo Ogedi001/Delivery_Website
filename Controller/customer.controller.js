@@ -87,7 +87,7 @@ const login = async (req, res) => {
     }
 }
 const getCustomer = (req, res) => {
-    res.status(201).render('customer')
+    res.status(201).render('customer_profile')
 }
 
 const logOut = (req, res) => {

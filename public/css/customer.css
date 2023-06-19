@@ -36,19 +36,34 @@ a:hover {
   color: #ffffff;
   /* Update with your desired hover icon color */
 }
+
+.img-fluid {
+  max-width: 10rem;
+}
+
+#img-fluid {
+  max-width: 3rem;
+}
+
 .me-2 {
   margin-left: 0.8rem;
 }
 
 .delivery-details {
-  width: 700px;
-  margin: 0 auto;
-  background-color: #fff;
+
+  background-color: rgb(245, 244, 249);
   border-radius: 5px;
-  padding: 5px 10px 30px 30px;
+  padding: 0px 0.76rem 0rem 0.76rem;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
 }
 
+
+
+thead {
+  font-size: 1.5rem;
+}
+
+
 .mx {
-  margin-left: 27.8rem;
+  background-color: #0F3057;
 }

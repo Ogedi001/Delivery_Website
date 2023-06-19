@@ -1,78 +1,89 @@
 <%- include('./partials/header') %>
 
-    <script type='text/javascript'>
-        let pickupMap;
-        let dropoffMap;
 
-        function GetMaps() {
-            pickupMap = new Microsoft.Maps.Map('#pickupMap', {});
-            dropoffMap = new Microsoft.Maps.Map('#dropoffMap', {});
-
-            Microsoft.Maps.loadModule('Microsoft.Maps.AutoSuggest', function () {
-                var options = {
-                    countryFilter: 'NGA' // Specify the country code for Nigeria
-                };
-
-                var manager1 = new Microsoft.Maps.AutosuggestManager({ map: pickupMap, options: options });
-                manager1.attachAutosuggest('#pickupSearchBox', '#pickupSearchBoxContainer', pickupSelectedSuggestion);
-
-                var manager2 = new Microsoft.Maps.AutosuggestManager({ map: dropoffMap, options: options });
-                manager2.attachAutosuggest('#dropoffSearchBox', '#dropoffSearchBoxContainer', dropOffSelectedSuggestion);
-            });
-        }
-
-
-        function pickupSelectedSuggestion(result) {
-            pickupMap.entities.clear();
-            let pin = new Microsoft.Maps.Pushpin(result.location);
-            pickupMap.entities.push(pin);
-            pickupMap.setView({ bounds: result.bestView });
-            document.getElementById('pickupSearchBox').value = result.formattedSuggestion;
-            document.getElementById('pickupSearchBoxValue').value = result.formattedSuggestion;
-
-        }
-        function dropOffSelectedSuggestion(result) {
-            dropoffMap.entities.clear();
-            let pin = new Microsoft.Maps.Pushpin(result.location);
-            dropoffMap.entities.push(pin);
-            dropoffMap.setView({ bounds: result.bestView });
-
-            document.getElementById('dropoffSearchBox').value = result.formattedSuggestion;
-            document.getElementById('dropoffSearchBoxValue').value = result.formattedSuggestion;
-        }
-
-    </script>
 
     <script type='text/javascript' src='http://www.bing.com/api/maps/mapcontrol?callback=GetMaps&key=<%= bingMapsKey %>'
         async defer></script>
 
-    <style>
-        th,
-        td {
-            border-right: 1px solid black;
-            padding: 5px;
-        }
-
-        th:last-child,
-        td:last-child {
-            border-right: none;
-        }
-
-
-        #modal {
-
-            background: linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)), rgba(255, 255, 255, 0.5);
-
-
-        }
-    </style>
+    <link rel="stylesheet" href="/css/customer_orders.css">
     </head>
 
     <body>
-        <!-- Orders Page -->
+        <header>
+            <nav class="navbar navbar-expand-lg">
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="#">Delivery Website</a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#collapsibleNavbar">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="collapsibleNavbar">
+                        <ul class="navbar-nav mx-auto">
+                            <li class="nav-item mr-3">
+                                <a class="nav-link" href="/home"><i class="fas fa-home"></i> Home</a>
+                            </li>
+
+                            <li class="nav-item mr-3">
+                                <a class="nav-link" href="/customer/orders"><i class="fas fa-shopping-cart"></i> Order
+                                    Now</a>
+                            </li>
+
+                            <li class="nav-item mr-3">
+                                <a class="nav-link" href="#"><i class="fas fa-truck"></i> Track Order</a>
+                            </li>
+
+                            <li class="nav-item mr-3">
+                                <a class="nav-link" href="#"><i class="fas fa-life-ring"></i> Supports</a>
+                            </li>
+
+                        </ul>
+                        <div>
+                            <ul class="navbar-nav d-flex align-items-center">
+                                <li class="nav-item mr-3">
+                                    <div class="d-flex align-items-center">
+                                        <div class="dropdown">
+                                            <a class="nav-link" href="#" onmouseover="showSignOutDropdown()"
+                                                onmouseout="hideSignOutDropdown()">
+                                                <% if (customer.profile_pic.data==null) { %>
+                                                    <i class="fas fa-user-circle fa-4x"></i>
+                                                    <% } else { %>
+                                                        <img id="img-fluid"
+                                                            class="img-fluid img-thumbnail rounded-circle"
+                                                            src="/uploads/<%= customer.profile_pic.data %>"
+                                                            alt="Profile Picture">
+                                                        <% } %>
+                                            </a>
+                                            <div class="dropdown-content" id="signOutDropdown" style="display:none ;"
+                                                onmouseover="showSignOutDropdown()" onmouseout="hideSignOutDropdown()">
+                                                <a href="/customer/signout">Sign Out</a>
+                                            </div>
+                                        </div>
+                                        <span class="mb-2 mx-auto">
+                                            <%= customer.name %>
+                                        </span>
+                                    </div>
+                                </li>
+                                <!-- <li class="nav-item">
+                                <a class="nav-link btn btn-dark" href="/customer/signout"><i class="fas fa-sign-in-alt"></i> Log out</a>
+                              </li> -->
+                                <li class="nav-item">
+                                    <label class="h4 switch mr-2">
+                                        <input id="switch" type="checkbox" class="me-2">
+                                        <span class="slider"></span>
+                                    </label>
+                                    <span id="light" class="h4 switch"><i class="fas fa-sun"></i></span>
+                                </li>
+                            </ul>
+                        </div>
+
+                    </div>
+                </div>
+            </nav>
+
+        </header>
 
 
-        <div class="order-history">
+        <div class="order-history container">
             <div style="display: none; " class="hiddenDiv">
                 <div id="modal" class="modal d-flex align-items-center justify-content-center" tabindex="-1"
                     role="dialog">
@@ -86,137 +97,153 @@
                     </div>
                 </div>
             </div>
+            <div class="col-9 d-flex flex-column align-items-center mx-auto mt-5">
+                <h2>Order History</h2>
+                <table class="border border-2">
+                    <thead style=" background-color: rgb(236, 235, 243);">
+                        <tr>
+                            <th class="fs-5 p-1 border border-secondary">Order ID</th>
+                            <th class="fs-5 p-1 border border-secondary"> Date</th>
+                            <th class="fs-5 p-1 border border-secondary">Item ordered</th>
+                            <th class="fs-5 p-1 border border-secondary">Total Amount</th>
+                            <th class="fs-5 p-1 border border-secondary">Order Status</th>
+                            <th class="fs-5 p-1 border border-secondary">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-light">
+                        <% const lastSixOrders=orders.slice(-5).reverse(); %>
+                            <% lastSixOrders.forEach(function(order) { %>
+                                <tr>
+                                    <td class="p-2 border border-2  rounded">
+                                        <%= order.orderNumber %>
+                                    </td>
+                                    <td class="p-2 border border-2 rounded">
+                                        <%= order.orderDate %>
+                                    </td>
+                                    <td class="p-2 border border-2 rounded">
+                                        <%= order.itemType%>
+                                    </td>
+                                    <td class="p-2 border border-2 rounded">
+                                        <%= order.OrderAmount %>
+                                    </td>
+                                    <td class="p-2  border border-2 rounded">
+                                        <%= order.orderStatus %>
+                                    </td>
+                                    <td>
+                                        <a href="/customer/order?id=<%= order._id %>" class="btn btn-primary btx">
+                                            <i class="fa fa-arrow-circle-right" aria-hidden="true"></i> View Details
+                                        </a>
+                                    </td>
 
-            <h1>Order History</h1>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Order ID</th>
-                        <th> Date</th>
-                        <th>Item ordered</th>
-                        <th>Total Amount</th>
-                        <th>Order Status</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <% const lastSixOrders=orders.slice(-5).reverse(); %>
-                        <% lastSixOrders.forEach(function(order) { %>
-                            <tr>
-                                <td>
-                                    <%= order.orderNumber %>
-                                </td>
-                                <td>
-                                    <%= order.orderDate %>
-                                </td>
-                                <td>
-                                    <%= order.itemType%>
-                                </td>
-                                <td>
-                                    <%= order.OrderAmount %>
-                                </td>
-                                <td>
-                                    <%= order.orderStatus %>
-                                </td>
-                                <td>
-                                    <a href="/customer/order?id=<%= order._id %>" class="btn btn-primary">
-                                        <i class="fa fa-arrow-circle-right" aria-hidden="true"></i> View Details
-                                    </a>
-                                </td>
+                                </tr>
+                                <% }); %>
 
-                            </tr>
-                            <% }); %>
-
-                </tbody>
-            </table>
-            <div>
-                <a href="/customer/orders-all" class="btn btn-primary">
+                    </tbody>
+                </table>
+            </div>
+            <div class="d-flex ms">
+                <a href="/customer/orders-all" class="btn btn-primary btx">
                     <i class="fas fa-archive"></i> View all order history
                 </a>
             </div>
 
-        </div>
 
 
-        <div class="new-order">
-            <h1>New Order</h1>
-            <h4 id="errorContainer">
-                <%= validError %>
-            </h4>
-            <form id="orderForm" action="/orders" method="POST">
-                <div style="display: inline-flex;">
-                    <div id='pickupSearchBoxContainer'>
-                        <label for="pickup-location">Pickup Location:</label>
-                        <input type="text" id="pickupSearchBox" name="pickupLocation" required autocomplete="off">
-                        <input type="hidden" id="pickupSearchBoxValue" name="pickupSearchBox">
+
+            <div class="new-order d-flex flex-column align-items-center mx-auto mt-5">
+                <h2>New Order</h2>
+
+                <form id="orderForm" action="/orders" method="POST" class="col-6">
+
+                    <div>
+                        <div id='pickupSearchBoxContainer' class="mb-3 ">
+                            <label for="pickup-location" class="form-label">Pickup Location:</label>
+                            <input type="text" id="pickupSearchBox" name="pickupLocation" required autocomplete="off">
+                            <input type="hidden" id="pickupSearchBoxValue" name="pickupSearchBox">
+                        </div>
+
+                        <div id="pickupMap" style="position:relative;height:350px;" class="w-auto mb-3">
+                        </div>
+
+                        <div id='dropoffSearchBoxContainer' class="mb-3">
+                            <label for="dropoff-location" class="form-label">Dropoff Location:</label>
+                            <input type="text" id="dropoffSearchBox" name="dropoffLocation" required autocomplete="off">
+                            <input type="hidden" id="dropoffSearchBoxValue" name="dropoffSearchBox">
+                        </div>
+
+
+                        <div id="dropoffMap" style="position:relative;height:350px" class="w-auto mb-3"></div>
                     </div>
 
-                    <div id="pickupMap" style="position:relative;width:400px;height:300px;"></div>
-
-                    <div id='dropoffSearchBoxContainer'>
-                        <label for="dropoff-location">Dropoff Location:</label>
-                        <input type="text" id="dropoffSearchBox" name="dropoffLocation" required autocomplete="off">
-                        <input type="hidden" id="dropoffSearchBoxValue" name="dropoffSearchBox">
+                    <div class="mb-3">
+                        <label for="itemType" class="form-label">Type of item</label>
+                        <select id="itemType" name="itemType" class="form-select">
+                            <option value="" disabled selected>Select item type</option>
+                            <option value="Groceries">Groceries</option>
+                            <option value="Accessories">Accessories</option>
+                            <option value="Books">Books</option>
+                            <option value="Clothes">Clothes</option>
+                            <option value="Electronics">Electronics</option>
+                            <option value="Furniture">Furniture</option>
+                            <option value="other">Other</option>
+                        </select>
                     </div>
 
+                    <div class="mb-3">
+                        <label for="delivery-option" class="form-label">Delivery Option:</label>
+                        <select id="delivery-option" name="deliveryOption" class="form-select">
+                            <option value="Standard">Standard (3-5 days)</option>
+                            <option value="Express">Express (1-2 days)</option>
+                        </select>
+                    </div>
 
-                    <div id="dropoffMap" style="position:relative;width:400px;height:300px"></div>
-                </div>
+                    <div class="mb-3">
+                        <label for="payment-option" class="form-label">Payment Option:</label>
+                        <select id="payment-option" name="paymentOption" class="form-select">
+                            <option value="Credit/Debit Card">Credit/Debit Card</option>
+                            <option value="PayPal">PayPal</option>
+                        </select>
+                    </div>
+                    <span id="errorContainer">
+                        <%= validError %>
+                    </span>
+                    <div class="mt-2">
+                        <!-- Button trigger modal -->
+                        <button type="submit" class="btn btn-primary btx ">
+                            Place Order
+                        </button>
+                        <a href="/customer" class="btn btn-primary btx">
+                            <i class="fas fa-arrow-left me-1"></i> Go back to profile page
+                        </a>
 
-                <select id="itemType" name="itemType">
-                    <option value="" disabled selected>Select item type</option>
-                    <option value="Groceries">Groceries</option>
-                    <option value="Accessories">Accessories</option>
-                    <option value="Books">Books</option>
-                    <option value="Clothes">Clothes</option>
-                    <option value="Electronics">Electronics</option>
-                    <option value="Furniture">Furniture</option>
-                    <option value="other">Other</option>
-                </select>
+                    </div>
 
-                <label for="delivery-option">Delivery Option:</label>
-                <select id="delivery-option" name="deliveryOption">
-                    <option value="Standard">Standard (3-5 days)</option>
-                    <option value="Express">Express (1-2 days)</option>
-                </select>
-
-                <label for="payment-option">Payment Option:</label>
-                <select id="payment-option" name="paymentOption">
-                    <option value="Credit/Debit Card">Credit/Debit Card</option>
-                    <option value="PayPal">PayPal</option>
-                </select>
-
-                <!-- Button trigger modal -->
-                <button type="submit" class="btn btn-primary">
-                    Place Order
-                </button>
-
-
-                <!-- Modal -->
-                <!-- Modal -->
-                <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false"
-                    tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true" data-bs-backdrop="false">
-                    <div class="modal-dialog modal-dialog-centered">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="staticBackdropLabel"></h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
-                                    id="closeModalButton"></button>
-                            </div>
-                            <div class="modal-body">
-                                <h4>OrderID:</h4>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
-                                    id="closeModalButton">Close</button>
-                                <button type="button" class="btn btn-primary" id="orderRiderButton">Order Rider
-                                    Now</button>
+                    <!-- Modal -->
+                    <!-- Modal -->
+                    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false"
+                        tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true" data-bs-backdrop="false">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="staticBackdropLabel"></h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                                        id="closeModalButton"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <h4>OrderID:</h4>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                                        id="closeModalButton">Close</button>
+                                    <button type="button" class="btn btn-primary" id="orderRiderButton">Order Rider
+                                        Now</button>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-            </form>
+                </form>
+            </div>
         </div>
 
         <%- include('./partials/footer') %>
@@ -224,100 +251,7 @@
             <script
                 src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.0-beta1/js/bootstrap.bundle.min.js"></script>
 
-
-
-            <script>
-
-                // Get the form element
-                const orderForm = document.getElementById('orderForm');
-
-                // document.querySelector('#btn').addEventListener('click', () => {
-                //    
-                // })
-
-
-                // Add an event listener for the form submission
-                orderForm.addEventListener('submit', async (event) => {
-                    event.preventDefault(); // Prevent the default form submission behavior
-                    const hiddenDiv = document.querySelector('.hiddenDiv')
-                    hiddenDiv.style.display = 'block';
-                    setTimeout(() => {
-                        hiddenDiv.style.display = 'none';
-                    }, 3000); // 5 seconds (5000 milliseconds)
-
-                    try {
-                        const response = await fetch('/orders', {
-                            method: 'POST',
-                            body: new URLSearchParams(new FormData(orderForm)),
-                        });
-
-                        if (response.ok) {
-                            // Order placed successfully
-                            const data = await response.json();
-                            const order = data.populatedOrder
-                            // Update the modal content with the order data
-                            const orderModalTitle = document.getElementById('staticBackdropLabel');
-                            const orderModalBody = document.querySelector('.modal-body h4');
-                            const orderRiderButton = document.querySelector('.modal-footer .btn-primary');
-
-
-
-                            orderModalTitle.textContent = 'Order placed successfully';
-                            orderModalBody.innerHTML =
-                                `Order ID: ${order.orderNumber}<br>` +
-                                `Type of Item: ${order.itemType}<br>` +
-                                `Order Date: ${order.orderDate}<br>` +
-                                `Distance: ${order.OrderDuration.distance_km} km<br>` +
-                                `Order Amount: ${order.OrderAmount}`;
-
-
-
-                            // Display the modal
-                            var myModalEl = document.getElementById('staticBackdrop');
-                            var modal = new bootstrap.Modal(myModalEl, {
-                                backdrop: 'static',
-                                keyboard: false
-                            });
-
-                            modal.show();
-                        } else {
-                            // Handle the error case
-                            const errorData = await response.json();
-
-                            if (errorData.itemTypeError) {
-                                const itemTypeError = errorData.itemTypeError;
-                                errorTimeOut(itemTypeError)
-                                return console.error(itemTypeError);
-                            } else if (errorData.validError) {
-                                const validError = errorData.validError
-                                errorTimeOut(validError)
-                                return console.log(validError)
-                            }
-
-                            console.log(errorData)
-                        }
-                    } catch (error) {
-                        console.error(error);
-                    }
-                });
-
-                const closeModalButtons = document.querySelectorAll('#closeModalButton');
-                closeModalButtons.forEach((button) => {
-                    button.addEventListener('click', () => {
-                        // Redirect to another page
-                        window.location.href = '/customer/orders';
-                    });
-                });
-
-                function errorTimeOut(errMsg) {
-                    const errorContainer = document.getElementById('errorContainer');
-                    errorContainer.textContent = errMsg;
-                    setTimeout(() => {
-                        errorContainer.textContent = " "
-                    }, 3000);
-                }
-
-            </script>
+            <script src="/jscript/customer_orders.js"></script>
 
     </body>
 

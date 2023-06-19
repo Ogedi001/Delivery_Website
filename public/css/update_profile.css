@@ -1,0 +1,80 @@
+nav {
+    background-color: #0f3057;
+    color: #ffffff;
+}
+
+.navbar-brand {
+    background-color: transparent;
+    color: #ffffff;
+}
+
+.navbar .btn-dark {
+    margin-right: 10px;
+}
+
+a {
+    color: #dde1e5;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+a:hover {
+    background-color: #03a9f4;
+    /* Clean Blue */
+}
+
+.dropdown-toggle:hover,
+.nav-item.btn-dark:hover {
+    background-color: #1d3d6f;
+    color: #ffffff;
+}
+
+.dropdown-toggle:hover .fa-user-plus,
+.nav-item.btn-dark:hover .fas.fa-sign-in-alt {
+    color: #ffffff;
+    /* Update with your desired hover icon color */
+}
+
+.profile-info {
+    background-color: #f0f9fc;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 0.5rem;
+}
+
+.profile-info input.form-control {
+    background-color: #ffffff;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    padding: 10px;
+    width: 100%;
+    margin-bottom: 1rem;
+}
+
+.profile-info form label {
+    font-weight: bold;
+}
+
+#errorContainer {
+    color: red;
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-top: 0.5rem;
+}
+
+
+.img-fluid {
+    max-width: 10rem;
+}
+
+#img-fluid {
+    max-width: 3rem;
+}
+
+.btx {
+    background-color: #0F3057;
+}

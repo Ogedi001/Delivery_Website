@@ -1,77 +1,257 @@
 <%- include('./partials/header') %>
+    <title>Customer page</title>
+    <link rel="stylesheet" href="/css/customer.css">
 
     </head>
 
     <body>
-        <!-- Customer Profile Page -->
 
-        <h1>My Profile</h1>
+        <header>
 
-        <% if (successMessage) { %>
-            <div class="success">
-                <strong>
-                    <%= successMessage %>
-                </strong>
-            </div>
-            <script>
-                // Remove the success message after 2 seconds
-                setTimeout(function () {
-                    var successDiv = document.querySelector('.success');
-                    successDiv.parentNode.removeChild(successDiv);
-                }, 2000);
-            </script>
-            <% } %>
+            <nav class="navbar navbar-expand-lg">
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="#">Delivery Website</a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#collapsibleNavbar">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="collapsibleNavbar">
+                        <ul class="navbar-nav mx-auto">
+                            <li class="nav-item mr-3">
+                                <a class="nav-link" href="/home"><i class="fas fa-home"></i> Home</a>
+                            </li>
 
+                            <li class="nav-item mr-3">
+                                <a class="nav-link" href="/customer/orders"><i class="fas fa-shopping-cart"></i> Order
+                                    Now</a>
+                            </li>
 
-                <div class="profile-info">
-                    <form action="/customer/profile/update-profile-pic" method="POST" enctype="multipart/form-data">
-                        <label for="profile-pic">Profile Picture:</label>
-                        <input type="file" id="profile_pic" name="profile_pic">
-                        <button type="submit">Upload Profile Picture</button>
-                    </form>
-                    <img src="/uploads/<%= customer.profile_pic.data %>" alt="Profile Picture">
+                            <li class="nav-item mr-3">
+                                <a class="nav-link" href="#"><i class="fas fa-truck"></i> Track Order</a>
+                            </li>
 
-                    <form action="/customer/profile/remove-profile-pic" method="POST">
-                        <button type="submit">Remove Profile Picture</button>
-                    </form>
+                            <li class="nav-item mr-3">
+                                <a class="nav-link" href="#"><i class="fas fa-life-ring"></i> Supports</a>
+                            </li>
 
+                        </ul>
+                        <div>
+                            <ul class="navbar-nav d-flex align-items-center">
+                                <li class="nav-item mr-3">
+                                    <div class="d-flex align-items-center">
+                                        <div class="dropdown">
+                                            <a class="nav-link" href="#" onmouseover="showSignOutDropdown()"
+                                                onmouseout="hideSignOutDropdown()">
+                                                <% if (customer.profile_pic.data==null) { %>
+                                                    <i class="fas fa-user-circle fa-4x"></i>
+                                                    <% } else { %>
+                                                        <img id="img-fluid"
+                                                            class="img-fluid img-thumbnail rounded-circle"
+                                                            src="/uploads/<%= customer.profile_pic.data %>"
+                                                            alt="Profile Picture">
+                                                        <% } %>
+                                            </a>
+                                            <div class="dropdown-content" id="signOutDropdown" style="display:none ;"
+                                                onmouseover="showSignOutDropdown()" onmouseout="hideSignOutDropdown()">
+                                                <a href="/customer/signout">Sign Out</a>
+                                            </div>
+                                        </div>
+                                        <span class="mb-2 mx-auto">
+                                            <%= customer.name %>
+                                        </span>
+                                    </div>
+                                </li>
+                                <!-- <li class="nav-item">
+                            <a class="nav-link btn btn-dark" href="/customer/signout"><i class="fas fa-sign-in-alt"></i> Log out</a>
+                          </li> -->
+                                <li class="nav-item">
+                                    <label class="h4 switch mr-2">
+                                        <input id="switch" type="checkbox" class="me-2">
+                                        <span class="slider"></span>
+                                    </label>
+                                    <span id="light" class="h4 switch"><i class="fas fa-sun"></i></span>
+                                </li>
+                            </ul>
+                        </div>
 
-                    <form action="/customer/profile/update-email" method="POST">
-                        <label for="email">Email:</label>
-                        <input type="email" id="email" name="newEmail" value="<%= customer.email %>" required>
-                        <button type="submit">Update Email</button>
-                    </form>
-
-                    <form action="/customer/profile/update-phone" method="POST">
-                        <label for="phone">Phone Number:</label>
-                        <input type="tel" id="phone" name="newPhone" value="<%= customer.phoneNumber %>" required>
-                        <button type="submit">Update Phone Number</button>
-                    </form>
-
-                    <form action="/customer/profile/update-address" method="POST">
-                        <label for="address">Address:</label>
-                        <input type="text" id="address" name="newAddress" value="<%= customer.address %>" required>
-                        <button type="submit">Update Address</button>
-                    </form>
-
-                    <form action="/customer/profile/update-password" method="POST">
-                        <label for="current-password">Current Password:</label>
-                        <input type="password" id="current-password" name="current_password"
-                            value="<%= value && value.current_password ? value.current_password : '' %>" required><br>
-                        <label for=" new-password">New Password:</label>
-                        <input type="password" id="new-password" name="new_password" required><br>
-                        <label for="confirm-password">Confirm New Password:</label>
-                        <input type="password" id="confirm-password" name="confirm_password" required>
-                        <button type="submit">Update Password</button>
-                        <h4>
-                            <%= passwordError%>
-                        </h4>
-                    </form>
-
-                    <a href="/account-activity">View Account Activity</a>
+                    </div>
                 </div>
-                <%- include('./partials/footer') %>
+            </nav>
 
+
+
+        </header>
+
+        <main>
+            <div class=" hero container mt-5">
+                <section class="d-flex flex-column align-items-center col-md-6 mx-auto">
+
+                    <div>
+                        <% if (customer.profile_pic.data==null) { %>
+                            <i class="fas fa-user-circle fa-6x"></i>
+                            <% } else { %>
+                                <img class="img-fluid img-thumbnail rounded-circle"
+                                    src="/uploads/<%= customer.profile_pic.data %>" alt="Profile Picture">
+                                <% } %>
+
+
+                    </div>
+                    <h1 class="text-center">Hello <%= customer.username %>
+                    </h1>
+                    <p class="text-center">This is your profile page. You can see all user info, place new orders,
+                        track
+                        orders by navigating to respective pages, choose payment types, and contact support.</p>
+                    <div class="d-flex">
+                        <button class="btn btn-outline-primary me-2" onclick='placeOrder()'>Place New Order</button>
+                        <button class="btn btn-outline-primary" onclick='viewOrderHistory()'>View Order History</button>
+                    </div>
+
+                </section>
+            </div>
+
+            <section class="container mb-5">
+
+                <div class="delivery-details w-100 mt-5 col-md-8">
+                    <table class="row">
+                        <thead class="row d-flex mb-1 p-2  w-100">
+                            <tr style="display: flex; align-items: center;">
+                                <th class="col"><strong>My account</strong></th>
+                                <th class="col">
+                                    <div style="display: flex; justify-content: flex-end;">
+                                        <button class="btn btn-primary mx" onclick='upDateProfile()'>Edit
+                                            profile</button>
+                                </th>
+
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody style="background-color: white; " class="p-3 border border-1">
+                            <tr class="row d-flex mb-3 ">
+                                <td><strong>User information</strong></td>
+                            </tr>
+
+                            <tr class="row d-flex ms-2 ">
+                                <td class="col m"><strong>Username</strong></td>
+                                <td class="col"><strong>Email</strong></td>
+                            </tr>
+                            <tr class="row d-flex ms-2">
+                                <td class="col">
+                                    <div class=" bg-light w-50 border border-2 p-2 mb-2 rounded">
+                                        <%= customer.name %>
+                                    </div>
+                                </td>
+                                <td class="col">
+                                    <div class=" bg-light w-50 border border-2 p-2 mb-2 rounded">
+                                        <%= customer.email %>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="row d-flex ms-2">
+                                <td class="col"><strong>Phone number</strong></td>
+                                <td class="col"><strong>Address</strong></td>
+                            </tr>
+                            <tr class="row d-flex ms-2 mb-5">
+                                <td class="col">
+                                    <div class=" bg-light w-50 border border-2 p-2 mb-2 rounded">
+                                        <%= customer.phoneNumber %>
+                                    </div>
+                                </td>
+                                <td class="col">
+                                    <div class=" bg-light w-50 border border-2 p-2 mb-2 rounded">
+                                        <%= customer.address %>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="row ">
+                                <td colspan="2">
+                                    <hr>
+                                </td>
+                            </tr>
+                            <tr class=" d-flex mb-3 ">
+                                <td><strong>Payment Methods</strong></td>
+                            </tr>
+
+
+                            <tr class=" d-flex  mb-2  ms-2">
+                                <td><strong>Credit Card</strong></td>
+                            </tr>
+                            <tr class=" d-flex  mb-2 ms-2 ">
+
+                                <td>
+                                    <div class=" bg-light border border-2 p-2 mb-2 rounded">**** **** **** 1234</div>
+                                </td>
+
+                                <td><button class="btn btn-primary mx ms-2">Edit</button></td>
+                            </tr>
+                            <tr class=" d-flex  ms-2 mb-2 ">
+                                <td><strong>PayPal</strong></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class=" bg-light border border-2 p-2 mb-2 rounded">
+                                        <%=customer.email%>
+                                    </div>
+                                </td>
+                                <td><button class="btn btn-primary mx ms-2">Edit</button></td>
+                            </tr>
+                            <tr class=" d-flex  ms-2 mb-2 ">
+                                <td><strong>Google Pay</strong></td>
+                            </tr>
+                            <tr class=" d-flex  mb-2 ">
+                                <td>
+                                    <div class=" bg-light border border-2 p-2 mb-2 rounded">
+                                        <%=customer.email%>
+                                    </div>
+                                </td>
+                                <td><button class="btn mx btn-primary ms-2">Edit</button></td>
+                            </tr>
+                            <tr class=" d-flex  ms-2 mb-2 ">
+                                <td><strong>Bank Transfer</strong></td>
+                            </tr>
+                            <tr class=" d-flex  ms-2 mb-2 ">
+                                <td>
+                                    <div class=" bg-light border border-2 p-2 mb-2 rounded">Acct No: ******** </div>
+                                </td>
+                                <td><button class="btn mx btn-primary ms-2">Edit</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <a class="mx" href="#">Add New Payment Method</a>
+
+                </div>
+
+
+
+
+
+
+
+
+
+
+
+        </main>
+        <%- include('./partials/footer') %>
+            <script>
+                function showSignOutDropdown() {
+                    let dropdown = document.getElementById("signOutDropdown"); dropdown.style.display = "block";
+                }
+                function hideSignOutDropdown() {
+                    let dropdown = document.getElementById("signOutDropdown");
+                    dropdown.style.display = "none";
+                }
+
+                const upDateProfile = () => {
+                    window.location.href = '/customer/profile'
+                }
+                const viewOrderHistory = () => {
+                    window.location.href = '/customer/orders-all'
+                }
+                const placeOrder = () => {
+                    window.location.href = '/customer/orders'
+                }
+            </script>
     </body>
 
     </html>
