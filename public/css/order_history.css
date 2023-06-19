@@ -1,0 +1,42 @@
+nav {
+    background-color: #0f3057;
+    color: #ffffff;
+}
+
+.navbar-brand {
+    background-color: transparent;
+    color: #ffffff;
+}
+
+.navbar .btn-dark {
+    margin-right: 10px;
+}
+
+a {
+    color: #dde1e5;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+a:hover {
+    background-color: #03a9f4;
+    /* Clean Blue */
+}
+
+.dropdown-toggle:hover,
+.nav-item.btn-dark:hover {
+    background-color: #1d3d6f;
+    color: #ffffff;
+}
+
+.dropdown-toggle:hover .fa-user-plus,
+.nav-item.btn-dark:hover .fas.fa-sign-in-alt {
+    color: #ffffff;
+    /* Update with your desired hover icon color */
+}
+
+#img-fluid {
+    max-width: 3rem;
+}

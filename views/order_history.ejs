@@ -12,114 +12,194 @@
             border-right: none;
         }
     </style>
+
+    <link rel="stylesheet" href="/css/order_history.css">
+
     </head>
 
-    <body class="d-flex flex-column align-items-center">
-        <div class="logo justify-content-center d-flex align-items-center">
-            <img src="logo.png" alt="logo">
-            <h2>Welcome <%= customer.username %>! to your order history
-            </h2>
-        </div>
+    <body>
+        <header>
 
-        <div class="order-history">
+            <nav class="navbar navbar-expand-lg">
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="#">Delivery Website</a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#collapsibleNavbar">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="collapsibleNavbar">
+                        <ul class="navbar-nav mx-auto">
+                            <li class="nav-item mr-3">
+                                <a class="nav-link" href="/home"><i class="fas fa-home"></i> Home</a>
+                            </li>
 
-            <table>
-                <thead>
-                    <tr>
-                        <th>Order ID</th>
-                        <th> Date</th>
-                        <th>Item ordered</th>
-                        <th>Total Amount</th>
-                        <th>Order Status</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <% orders.forEach(function(order) { %>
+                            <li class="nav-item mr-3">
+                                <a class="nav-link" href="/customer/orders"><i class="fas fa-shopping-cart"></i> Order
+                                    Now</a>
+                            </li>
+
+                            <li class="nav-item mr-3">
+                                <a class="nav-link" href="#"><i class="fas fa-truck"></i> Track Order</a>
+                            </li>
+
+                            <li class="nav-item mr-3">
+                                <a class="nav-link" href="#"><i class="fas fa-life-ring"></i> Supports</a>
+                            </li>
+
+                        </ul>
+                        <div>
+                            <ul class="navbar-nav d-flex align-items-center">
+                                <li class="nav-item mr-3">
+                                    <div class="d-flex align-items-center">
+                                        <div class="dropdown">
+                                            <a class="nav-link" href="#" onmouseover="showSignOutDropdown()"
+                                                onmouseout="hideSignOutDropdown()">
+                                                <% if (customer.profile_pic.data==null) { %>
+                                                    <i class="fas fa-user-circle fa-4x"></i>
+                                                    <% } else { %>
+                                                        <img id="img-fluid"
+                                                            class="img-fluid img-thumbnail rounded-circle"
+                                                            src="/uploads/<%= customer.profile_pic.data %>"
+                                                            alt="Profile Picture">
+                                                        <% } %>
+                                            </a>
+                                            <div class="dropdown-content" id="signOutDropdown" style="display:none ;"
+                                                onmouseover="showSignOutDropdown()" onmouseout="hideSignOutDropdown()">
+                                                <a href="/customer/signout">Sign Out</a>
+                                            </div>
+                                        </div>
+                                        <span class="mb-2 mx-auto">
+                                            <%= customer.name %>
+                                        </span>
+                                    </div>
+                                </li>
+                                <!-- <li class="nav-item">
+                                    <a class="nav-link btn btn-dark" href="/customer/signout"><i class="fas fa-sign-in-alt"></i> Log out</a>
+                                  </li> -->
+                                <li class="nav-item">
+                                    <label class="h4 switch mr-2">
+                                        <input id="switch" type="checkbox" class="me-2">
+                                        <span class="slider"></span>
+                                    </label>
+                                    <span id="light" class="h4 switch"><i class="fas fa-sun"></i></span>
+                                </li>
+                            </ul>
+                        </div>
+
+                    </div>
+                </div>
+            </nav>
+        </header>
+
+        <div class="container " style="min-height:  700px;">
+            <div class="d-flex align-items-center flex-column mx-auto mt-5">
+                <h2>Dear <%= customer.username %>, this is order history
+                </h2>
+
+
+                <div class="order-history" ">
+
+            <table class=" border border-2">
+                    <thead style=" background-color: rgb(236, 235, 243);">
                         <tr>
-                            <td>
-                                <%= order.orderNumber %>
-                            </td>
-                            <td>
-                                <%= order.orderDate %>
-                            </td>
-                            <td>
-                                <%= order.itemType%>
-                            </td>
-                            <td>
-                                <%= order.OrderAmount %>
-                            </td>
-                            <td>
-                                <%= order.orderStatus %>
-                            </td>
-                            <td>
-                                <a href="/customer/order?id=<%= order._id %>" class="btn btn-outline-primary">
-                                    <i class="fa fa-arrow-circle-right" aria-hidden="true"></i> View Details
-                                </a>
-                            </td>
+                            <th class="fs-5 p-1 border border-secondary">Order ID</th>
+                            <th class="fs-5 p-1 border border-secondary"> Date</th>
+                            <th class="fs-5 p-1 border border-secondary">Item ordered</th>
+                            <th class="fs-5 p-1 border border-secondary">Total Amount</th>
+                            <th class="fs-5 p-1 border border-secondary">Order Status</th>
+                            <th class="fs-5 p-1 border border-secondary">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% orders.forEach(function(order) { %>
+                            <tr>
+                                <td class="p-2 border border-2  rounded">
+                                    <%= order.orderNumber %>
+                                </td>
+                                <td class="p-2 border border-2  rounded">
+                                    <%= order.orderDate %>
+                                </td>
+                                <td class="p-2 border border-2  rounded">
+                                    <%= order.itemType%>
+                                </td>
+                                <td class="p-2 border border-2  rounded">
+                                    <%= order.OrderAmount %>
+                                </td>
+                                <td class="p-2 border border-2  rounded">
+                                    <%= order.orderStatus %>
+                                </td>
+                                <td>
+                                    <a href=" /customer/order?id=<%=order._id %>" class="btn btn-outline-primary">
+                                        <i class="fa fa-arrow-circle-right" aria-hidden="true"></i> View Details
+                                    </a>
+                                </td>
 
 
 
-                            <td>
+                                <td>
 
-                                <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal"
-                                    data-bs-target="#exampleModalCenter">
-                                    <i class="fas fa-trash"></i> Delete
-                                </button>
+                                    <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal"
+                                        data-bs-target="#exampleModalCenter">
+                                        <i class="fas fa-trash"></i> Delete
+                                    </button>
 
-                                <!-- Modal -->
-                                <div class="modal fade" id="exampleModalCenter" tabindex="-1"
-                                    aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                                    <div class="modal-dialog modal-dialog-centered">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalCenterTitle">Modal title</h5>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                    aria-label="Close"></button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <h4>
-                                                    <%= customer.username %>
-                                                </h4>
-                                                Do you want to delete this order history
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary"
-                                                    data-bs-dismiss="modal">Close</button>
-                                                <button type="button" class="btn btn-outline-danger"
-                                                    onclick="deleteOrder('<%= order._id %>')">Save changes</button>
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="exampleModalCenter" tabindex="-1"
+                                        aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalCenterTitle">Modal title
+                                                    </h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                        aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <h4>
+                                                        <%= customer.username %>
+                                                    </h4>
+                                                    Do you want to delete this order history
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary"
+                                                        data-bs-dismiss="modal">Close</button>
+                                                    <button type="button" class="btn btn-outline-danger"
+                                                        onclick="deleteOrder('<%= order._id %>')">Save changes</button>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
 
-                            </td>
+                                </td>
 
-                        </tr>
-                        <% }); %>
+                            </tr>
+                            <% }); %>
 
-                </tbody>
-            </table>
-            <div>
-                <div>
-                    <a href="/customer/orders" class="btn btn-primary">
-                        <i class="fas fa-arrow-left me-1"></i> Go back to orders
-                    </a>
+                    </tbody>
+                    </table>
                 </div>
+                <div>
+                    <div>
+                        <a href="/customer/orders" class="btn btn-primary">
+                            <i class="fas fa-arrow-left me-1"></i> Go back to orders
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-                <%- include('./partials/footer') %>
-
-                    <script>
-                        const deleteOrder = async (id) => {
-                            let url = '/order/delete?id=' + id
-                            const response = await fetch(url, {
-                                method: 'DELETE',
-                            })
-                            const results = await response.json()
-                            console.log(results)
-                            window.location.reload()
-                        }
-                    </script>
+        <%- include('./partials/footer') %>
+            <script>
+                const deleteOrder = async (id) => {
+                    let url = '/order/delete?id=' + id
+                    const response = await fetch(url, {
+                        method: 'DELETE',
+                    })
+                    const results = await response.json()
+                    console.log(results)
+                    window.location.reload()
+                }
+            </script>
     </body>
 
     </html>
