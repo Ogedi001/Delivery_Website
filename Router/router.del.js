@@ -9,7 +9,7 @@ const { getCustomerOrders, postCustomerOrders, order, AllOrders, deleteOrder } =
 
 router.get('*', checkCustomer)
 router.post('*', checkCustomer)
-router.get('/home', getHome);
+router.get('/', getHome);
 router.get('/signup/:signUpType', getSignUP);
 router.post('/signup/customer', RegCustomer);
 router.get('/login', getLogin),
